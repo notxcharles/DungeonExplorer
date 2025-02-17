@@ -19,7 +19,7 @@ namespace DungeonExplorer
              * [ [], [] ]
              * [ [], [] ]
              */
-            this.roomDisplay = new char[x,y];
+            this.roomDisplay = new char[x+2,y+2];
             DisplayRoom();
         }
 
@@ -34,8 +34,8 @@ namespace DungeonExplorer
         }
         public void DisplayRoom()
         {
-            int xMax = dimensions[0];
-            int yMax = dimensions[1];
+            int xMax = dimensions[0]+2;
+            int yMax = dimensions[1]+2;
             Console.WriteLine($"Room of size x={xMax}, y={yMax}:");
             for (int y = 0; y < yMax; y++)
             {
