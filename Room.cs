@@ -21,7 +21,6 @@ namespace DungeonExplorer
              */
             this.roomDisplay = new char[x,y];
             DisplayRoom();
-            Console.WriteLine($"{dimensions[0]} , {dimensions[1]}");
         }
 
         public string GetDescription()
@@ -37,35 +36,36 @@ namespace DungeonExplorer
         {
             int xMax = dimensions[0];
             int yMax = dimensions[1];
-            Console.WriteLine($"Room:");
-            for (int x = 0; x < xMax; x++)
+            Console.WriteLine($"Room of size x={xMax}, y={yMax}:");
+            for (int y = 0; y < yMax; y++)
             {
                 char[] line = new char[yMax];
-                for (int y = 0; y < yMax; y++)
+                for (int x = 0; x < xMax; x++)
                 {
-                    if ((y == 0 && x == 0) || (y == yMax - 1 && x == xMax- 1))
+                    if ((y == 0 && x == 0) || (y == yMax-1 && x == xMax-1))
                     {
-                        line[y] = '/';
+                        line[x] = '/';
                     }
-                    else if ((y == yMax - 1 && x == 0) || (y == 0 && x == xMax - 1))
+                    else if ((y == yMax-1 && x == 0) || (y == 0 && x == xMax-1))
                     {
-                        line[y] = '\\';
+                        line[x] = '\\';
                     }
                     else if (y == 0 || y == yMax - 1)
                     {
-                        line[y] = '|';
+                        line[x] = '-';
                     }
                     else if (x == 0 || x == xMax - 1)
                     {
-                        line[y] = '-';
+                        line[x] = '|';
                     }
                     else
                     {
-                        line[y] = 'o';
+                        line[x] = 'o';
                     }
                 }
                 string sLine = String.Join(" ", line);
                 Console.WriteLine(sLine);
+                
             }
         }
     }
