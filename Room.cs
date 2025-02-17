@@ -7,19 +7,19 @@ namespace DungeonExplorer
     {
         private string description;
         private int[] dimensions = new int[2];
+        private int[] doorCoords = new int[2];
+        private int[] monsterCoords = new int[2];
+        private int[] treasureCoords = new int[2];
         private char[,] roomDisplay;
-        public Room(string description, int x, int y)
+        public Room(string description, int[] roomDimensions, int[] doorCoordinates, int[] monsterCoordinates, int[] treasureCoordinates)
         {
             this.description = description;
-            this.dimensions[0] = x;
-            this.dimensions[1] = y;
-            /* when x = 2; y = 4;
-             * [ [], [] ]
-             * [ [], [] ]
-             * [ [], [] ]
-             * [ [], [] ]
-             */
-            this.roomDisplay = new char[x+2,y+2];
+            int roomX = roomDimensions[0];
+            int roomY = roomDimensions[1];
+            this.dimensions[0] = roomX;
+            this.dimensions[1] = roomY;
+
+            this.roomDisplay = new char[roomX+2,roomY+2];
             DisplayRoom();
         }
 
@@ -40,6 +40,7 @@ namespace DungeonExplorer
             for (int y = 0; y < yMax; y++)
             {
                 char[] line = new char[yMax];
+                string[] lines = new string[yMax];
                 for (int x = 0; x < xMax; x++)
                 {
                     if ((y == 0 && x == 0) || (y == yMax-1 && x == xMax-1))
@@ -63,10 +64,29 @@ namespace DungeonExplorer
                         line[x] = 'o';
                     }
                 }
+                // Doors, Monsters and Treasures
+                int doorsX = this.doorCoords[0];
+                int doorsY = this.doorCoords[1];
+                if (y == doorsY)
+                {
+                    line[doorsX] = 'D';
+                }
+                int monsterX = this.monsterCoords[0];
+                int monsterY = this.monsterCoords[1];
+                if (y == doorsY)
+                {
+                    line[monsterX] = 'M';
+                }
+                int treasureX = this.treasureCoords[0];
+                int treasureY = this.treasureCoords[1];
+                if (y == doorsY)
+                {
+                    line[treasureX] = 'T';
+                }
                 string sLine = String.Join(" ", line);
                 Console.WriteLine(sLine);
-                
             }
         }
+
     }
 }
