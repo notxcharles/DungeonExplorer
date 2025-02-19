@@ -11,6 +11,8 @@ namespace DungeonExplorer
         private int[] monsterCoords = new int[2];
         private int[] treasureCoords = new int[2];
         private char[,] roomDisplay;
+        private bool isTreasure = true;
+        private bool doorIsLocked;
         public Room(string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates, int[] treasureCoordinates)
         {
             this.description = description;
@@ -18,9 +20,20 @@ namespace DungeonExplorer
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
             this.doorPosition = doorPosition;
+            //Door is locked initially if there is a monster in the room
+            if (monsterCoordinates[0] == -1 && monsterCoordinates[1] == -1)
+            {
+                this.doorIsLocked = false;
+                Console.WriteLine("Door is unlocked");
+            }
             this.monsterCoords = monsterCoordinates;
+            //There is treasure if we are given treasure coords
+            if (treasureCoordinates[0] == -1 && treasureCoordinates[1] == -1)
+            {
+                this.isTreasure = false;
+                Console.WriteLine("No treasure");
+            }
             this.treasureCoords = treasureCoordinates;
-
             this.roomDisplay = new char[roomX+2,roomY+2];
             RenderRoom();
             DisplayRoom();
