@@ -22,6 +22,7 @@ namespace DungeonExplorer
             this.treasureCoords = treasureCoordinates;
 
             this.roomDisplay = new char[roomX+2,roomY+2];
+            RenderRoom();
             DisplayRoom();
         }
 
@@ -34,58 +35,75 @@ namespace DungeonExplorer
         {
             return roomDimensions;
         }
+
+        //Displays the contents of this.roomDisplay to the console
         public void DisplayRoom()
         {
-            int xMax = roomDimensions[0]+2;
-            int yMax = roomDimensions[1]+2;
-            Console.WriteLine($"Room of size x={xMax}, y={yMax}:");
-            for (int y = 0; y < yMax; y++)
+            int yMax = this.roomDisplay.GetLength(1);
+            for (int y = 0; y < yMax; y++) 
             {
-                char[] line = new char[yMax];
-                string[] lines = new string[yMax];
+                char[] line = new char[this.roomDisplay.GetLength(0)];
+                int xMax = this.roomDisplay.GetLength(0);
                 for (int x = 0; x < xMax; x++)
                 {
-                    if ((y == 0 && x == 0) || (y == yMax-1 && x == xMax-1))
+                    //Console.WriteLine($"{x}, {y}");
+                    line[x] = this.roomDisplay[x, y];
+                }
+                Console.WriteLine(line);
+            }
+            return;
+        }
+
+        //Renders the room and fills out the this.roomDisplay 2d array
+        public void RenderRoom()
+        {
+            int xMax = roomDimensions[0];
+            int yMax = roomDimensions[1];
+            //Console.WriteLine($"Room of size x={xMax}, y={yMax}:");
+            for (int y = 0; y < yMax; y++)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    if ((y == 0 && x == 0) || (y == yMax - 1 && x == xMax - 1))
                     {
-                        line[x] = '/';
+                        this.roomDisplay[x, y] = '/';
                     }
-                    else if ((y == yMax-1 && x == 0) || (y == 0 && x == xMax-1))
+                    else if ((y == yMax - 1 && x == 0) || (y == 0 && x == xMax - 1))
                     {
-                        line[x] = '\\';
+                        this.roomDisplay[x, y] = '\\';
                     }
                     else if (y == 0 || y == yMax - 1)
                     {
-                        line[x] = '-';
+                        this.roomDisplay[x, y] = '-';
                     }
                     else if (x == 0 || x == xMax - 1)
                     {
-                        line[x] = '|';
+                        this.roomDisplay[x, y] = '|';
                     }
                     else
                     {
-                        line[x] = 'o';
+                        this.roomDisplay[x, y] = 'o';
                     }
                 }
                 // Doors, Monsters and Treasures
                 if (y == 0)
                 {
-                    line[this.doorPosition] = 'D';
+                    this.roomDisplay[this.doorPosition, y] = 'D';
                 }
                 int monsterX = this.monsterCoords[0];
                 int monsterY = this.monsterCoords[1];
                 if (y == monsterY)
                 {
-                    line[monsterX] = 'M';
+                    this.roomDisplay[monsterX, y] = 'M';
                 }
                 int treasureX = this.treasureCoords[0];
                 int treasureY = this.treasureCoords[1];
                 if (y == treasureY)
                 {
-                    line[treasureX] = 'T';
+                    this.roomDisplay[treasureX, y] = 'T';
                 }
-                string sLine = String.Join(" ", line);
-                Console.WriteLine(sLine);
             }
+            return;
         }
 
     }
