@@ -6,13 +6,15 @@ namespace DungeonExplorer
     public class Room
     {
         private string description;
-        private int[] roomDimensions = new int[2];
+        private int[] roomDimensions;
         private int doorPosition;
-        private int[] monsterCoords = new int[2];
-        private int[] treasureCoords = new int[2];
+        private int[] monsterCoords;
+        private int[] treasureCoords;
         private char[,] roomDisplay;
         private bool isTreasure = true;
-        private bool doorIsLocked;
+        private bool doorIsLocked = true;
+
+        // Room that features a monster, exit door and treasure
         public Room(string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates, int[] treasureCoordinates)
         {
             this.description = description;
@@ -20,21 +22,36 @@ namespace DungeonExplorer
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
             this.doorPosition = doorPosition;
-            //Door is locked initially if there is a monster in the room
-            if (monsterCoordinates[0] == -1 && monsterCoordinates[1] == -1)
-            {
-                this.doorIsLocked = false;
-                Console.WriteLine("Door is unlocked");
-            }
             this.monsterCoords = monsterCoordinates;
-            //There is treasure if we are given treasure coords
-            if (treasureCoordinates[0] == -1 && treasureCoordinates[1] == -1)
-            {
-                this.isTreasure = false;
-                Console.WriteLine("No treasure");
-            }
             this.treasureCoords = treasureCoordinates;
             this.roomDisplay = new char[roomX+2,roomY+2];
+            RenderRoom();
+            DisplayRoom();
+        }
+        // A monster and an exit door in this room
+        public Room(string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates)
+        {
+            
+            this.description = description;
+            int roomX = roomDimensions[0];
+            int roomY = roomDimensions[1];
+            this.roomDimensions = roomDimensions;
+            this.doorPosition = doorPosition;
+            this.monsterCoords = monsterCoordinates;
+            this.roomDisplay = new char[roomX + 2, roomY + 2];
+            RenderRoom();
+            DisplayRoom();
+        }
+        // The final room, there is treasure in this room but no door or monster
+        public Room(string description, int[] roomDimensions, int[] treasureCoordinates)
+        {
+
+            this.description = description;
+            int roomX = roomDimensions[0];
+            int roomY = roomDimensions[1];
+            this.roomDimensions = roomDimensions;
+            this.treasureCoords = treasureCoordinates;
+            this.roomDisplay = new char[roomX + 2, roomY + 2];
             RenderRoom();
             DisplayRoom();
         }
