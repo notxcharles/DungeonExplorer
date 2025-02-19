@@ -70,7 +70,7 @@ namespace DungeonExplorer
         public void DisplayRoom()
         {
             int yMax = this.roomDisplay.GetLength(1);
-            for (int y = 0; y < yMax; y++) 
+            for (int y = yMax-1; y >= 0; y--) 
             {
                 char[] line = new char[this.roomDisplay.GetLength(0)];
                 int xMax = this.roomDisplay.GetLength(0);
@@ -116,7 +116,7 @@ namespace DungeonExplorer
                     }
                 }
                 // Doors, Monsters and Treasures
-                if (y == 0)
+                if (y == yMax-1)
                 {
                     this.roomDisplay[this.doorPosition, y] = 'D';
                 }

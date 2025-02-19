@@ -21,6 +21,7 @@ namespace DungeonExplorer
             int doorPosition = 5; // The door is always placed at the top of the room. Door Position controls the horizontal position
             int[] monsterCoord = new int[2] { 3, 5 }; // Setting to -1,-1 indicates no monster
             int[] treasureCoord = new int[2] { 3, 2 }; // Setting to -1,-1 indicates no treasure
+            //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
             Room r = new Room("first", roomSize, doorPosition, monsterCoord, treasureCoord);
             while (playing)
             {
