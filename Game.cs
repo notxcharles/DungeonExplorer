@@ -20,10 +20,10 @@ namespace DungeonExplorer
         public void Start()
         {
             // Change the playing logic into true and populate the while loop
-            int currentRoom = 0;
+            int roomNumber = 0;
             GameStartDisplay();
             
-            while (currentRoom < m_numberOfRooms)
+            while (roomNumber < m_numberOfRooms)
             {
                 // Let's create a game where the player needs to fight monsters in multiple rooms before completing the game to find a treasure in the final room
                 // Each room has one monster which the player much fight before the door to the next room is unlocked
@@ -34,8 +34,8 @@ namespace DungeonExplorer
                 int[] monsterCoord = new int[2] { 3, 5 }; // Setting to -1,-1 indicates no monster
                 int[] treasureCoord = new int[2] { 3, 2 }; // Setting to -1,-1 indicates no treasure
                 //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
-                Room currentRoom = new Room("first", roomSize, doorPosition, monsterCoord, treasureCoord);
-
+                Room currentRoom = new Room("first", "first room desc", roomSize, doorPosition, monsterCoord, treasureCoord);
+                currentRoom.WelcomePlayer();
                 //while: Player can make multiple decisions whilst in the same room, eg view their inventory, then fight, then go to the next room
                 int decision = m_player.GetDecision();
                 if (decision == 0)
@@ -58,9 +58,9 @@ namespace DungeonExplorer
                     m_player.NextRoom();
                     //Player can only use the door when the monster is defeated
                 }
-               
 
-                currentRoom += 1;
+
+                roomNumber += 1;
             }
             // Once the player has defeated all of the rooms, the last room will have the treasure
             // When the player retrieves the loot they have won the game

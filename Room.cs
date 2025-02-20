@@ -5,6 +5,7 @@ namespace DungeonExplorer
 {
     public class Room
     {
+        private string roomName;
         private string description;
         private int[] roomDimensions;
         private int doorPosition;
@@ -15,8 +16,9 @@ namespace DungeonExplorer
         private bool doorIsLocked = true;
 
         // Room that features a monster, exit door and treasure
-        public Room(string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates, int[] treasureCoordinates)
+        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates, int[] treasureCoordinates)
         {
+            this.roomName = roomName;
             this.description = description;
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
@@ -29,9 +31,9 @@ namespace DungeonExplorer
             DisplayRoom();
         }
         // A monster and an exit door in this room
-        public Room(string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates)
+        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates)
         {
-            
+            this.roomName = roomName;
             this.description = description;
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
@@ -43,9 +45,9 @@ namespace DungeonExplorer
             DisplayRoom();
         }
         // The final room, there is treasure in this room but no door or monster
-        public Room(string description, int[] roomDimensions, int[] treasureCoordinates)
+        public Room(string roomName, string description, int[] roomDimensions, int[] treasureCoordinates)
         {
-
+            this.roomName = roomName;
             this.description = description;
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
@@ -140,6 +142,10 @@ namespace DungeonExplorer
             }
             return;
         }
-
+        public void WelcomePlayer()
+        {
+            Console.WriteLine($"Welcome to {this.roomName}");
+            Console.WriteLine($"{this.description}");
+        }
     }
 }
