@@ -66,6 +66,11 @@ namespace DungeonExplorer
             return roomDimensions;
         }
 
+        public Monster GetMonster()
+        {
+            throw new NotImplementedException();
+        }
+
         //Displays the contents of this.roomDisplay to the console
         public void DisplayRoom()
         {

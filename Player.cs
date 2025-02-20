@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
@@ -20,6 +21,23 @@ namespace DungeonExplorer
         public string InventoryContents()
         {
             return string.Join(", ", inventory);
+        }
+        public int GetDecision()
+        {
+            throw new NotImplementedException();
+            return 0;
+        }
+
+        public void ViewInventory()
+        {
+            throw new NotImplementedException();
+            return;
+        }
+        public void NextRoom()
+        {
+            //check if the player is allowed to go to the next room
+            throw new NotImplementedException();
+            return;
         }
     }
 }
