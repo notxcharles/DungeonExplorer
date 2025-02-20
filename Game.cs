@@ -67,9 +67,24 @@ namespace DungeonExplorer
             FinishGame();
             return;
         }
+        public void ClearConsole()
+        {
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
+            return;
+        }
+        public void GameStartDisplay()
+        {
+            ClearConsole();
+            Console.WriteLine($"Welcome to {m_gameName}");
+            Console.WriteLine("Press any key to start the game. . .");
+            Console.ReadKey();
+            return;
+        }
         public void FinishGame()
         {
-
+            throw new NotImplementedException();
+            return;
         }
     }
 }
