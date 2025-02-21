@@ -25,6 +25,10 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("Your inventory is full! You cannot pick up any more weapons");
             }
+            else if (weapon == null)
+            {
+                Console.WriteLine("Error: Weapon does not exist");
+            }
             else
             {
                 inventory.Add(weapon);
@@ -100,7 +104,7 @@ namespace DungeonExplorer
                 try
                 {
                     int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                    if (keyAsInt == 0 || keyAsInt == 1 || keyAsInt == 2)
+                    if (keyAsInt >= 0 && keyAsInt <= 4)
                     {
                         Console.WriteLine($"Player pressed {keyAsInt}");
                         return keyAsInt;

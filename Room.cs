@@ -244,5 +244,10 @@ namespace DungeonExplorer
             //DisplayRoom();
             return;
         }
+        public void WeaponPickedUp()
+        {
+            WeaponInTheRoom = null;
+            return;
+        }
     }
 }

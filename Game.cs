@@ -26,7 +26,7 @@ namespace DungeonExplorer
             // Change the playing logic into true and populate the while loop
             int roomNumber = 0;
             GameStartDisplay();
-            Room currentRoom = CreateMonsterRoom();
+            m_currentRoom = CreateMonsterRoom();
             while (roomNumber < m_numberOfRooms)
             {
                 // Let's create a game where the player needs to fight monsters in multiple rooms before completing the game to find a treasure in the final room
@@ -43,21 +43,12 @@ namespace DungeonExplorer
                 //{
                 //    Console.WriteLine("Regular room");
                 //}
-                
-                
-                
-                
-                
-                currentRoom.WelcomePlayer();
+                m_currentRoom.WelcomePlayer();
                 int decision = m_player.GetDecision();
                 if (decision == 0)
                 {
                     //Player wants to view inventory
                     m_player.ViewInventory();
-                    if (m_player.GetItemsInInventory() > 0)
-                    {
-                        //Player has items in their inventory, they can choose to equip a different item
-                    }
                 }
                 else if (decision == 1)
                 {
@@ -74,7 +65,8 @@ namespace DungeonExplorer
                     }
                     else
                     {
-                        m_player.PickUpWeapon(currentRoom.WeaponInTheRoom);
+                        m_player.PickUpWeapon(m_currentRoom.WeaponInTheRoom);
+                        m_currentRoom.WeaponPickedUp();
                     }
                 }
                 else if (decision == 3)
@@ -85,16 +77,15 @@ namespace DungeonExplorer
                     //There needs to be a monster class that contains the hp and the defence and attacking strength
                     //We can calculate the player attack and defense strength using the Player Class
                     //After defeating the monster, the player has the option to pick up and equip a new 
+                    Console.WriteLine("Player wants to fight");
                     roomNumber += 1;
                 }
                 else if (decision == 4)
                 {
                     //Player wants to goes to next room
-                    if (NextRoom(currentRoom))
+                    if (NextRoom(m_currentRoom))
                     {
-                        Thread.Sleep(3500);
                         roomNumber += 1;
-                        continue;
                     }
                 }
 
