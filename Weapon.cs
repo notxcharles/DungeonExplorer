@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DungeonExplorer
@@ -11,11 +12,46 @@ namespace DungeonExplorer
         public string Type { get; private set; }
         public int AverageDamage { get; private set; }
         Random m_random;
-        public Weapon(string weaponType, int weaponAverageDamage)
+        private string[] weaponTypes = {
+            "Baseball Bat",
+            "Machete",
+            "Crowbar",
+            "Fire Axe",
+            "Katana",
+            "Shovel",
+            "Chainsaw",
+            "Hammer",
+            "Shotgun",
+            "Rifle",
+            "Bow and Arrow",
+            "Chair Leg",
+            "Fire Extinguisher",
+            "Heavy Flashlight",
+            "Screwdriver",
+            "Kitchen Knife",
+            "Barbed Wire",
+            "Handheld Lawnmower",
+            "Car",
+            "Fireworks",
+            "Tennis Ball Machine"
+        };
+        public Weapon(string type, int weaponAverageDamage)
         {
             m_random = new Random();
-            Type = weaponType;
+            Type = type;
             AverageDamage = weaponAverageDamage;
+        }
+        public Weapon(int weaponAverageDamage)
+        {
+            m_random = new Random();
+            Type = GetWeaponType();
+            AverageDamage = weaponAverageDamage;
+        }
+        private string GetWeaponType()
+        {
+            int index = m_random.Next(0, weaponNames.Length);
+            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
+            return weaponNames[index];
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
         {
