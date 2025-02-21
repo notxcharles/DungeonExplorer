@@ -12,26 +12,12 @@ namespace DungeonExplorer
         private int[] monsterCoords;
         private int[] treasureCoords;
         private char[,] roomDisplay;
+        private Monster monster;
         private bool isTreasure = true;
         private bool doorIsLocked = true;
 
-        // Room that features a monster, exit door and treasure
-        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates, int[] treasureCoordinates)
-        {
-            this.roomName = roomName;
-            this.description = description;
-            int roomX = roomDimensions[0];
-            int roomY = roomDimensions[1];
-            this.roomDimensions = roomDimensions;
-            this.doorPosition = doorPosition;
-            this.monsterCoords = monsterCoordinates;
-            this.treasureCoords = treasureCoordinates;
-            this.roomDisplay = new char[roomX+2,roomY+2];
-            RenderRoom();
-            DisplayRoom();
-        }
         // A monster and an exit door in this room
-        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, int[] monsterCoordinates)
+        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
         {
             this.roomName = roomName;
             this.description = description;
@@ -40,9 +26,9 @@ namespace DungeonExplorer
             this.roomDimensions = roomDimensions;
             this.doorPosition = doorPosition;
             this.monsterCoords = monsterCoordinates;
+            this.monster = monster;
             this.roomDisplay = new char[roomX + 2, roomY + 2];
             RenderRoom();
-            DisplayRoom();
         }
         // The final room, there is treasure in this room but no door or monster
         public Room(string roomName, string description, int[] roomDimensions, int[] treasureCoordinates)
@@ -55,7 +41,6 @@ namespace DungeonExplorer
             this.treasureCoords = treasureCoordinates;
             this.roomDisplay = new char[roomX + 2, roomY + 2];
             RenderRoom();
-            DisplayRoom();
         }
 
         public string GetDescription()
@@ -68,9 +53,9 @@ namespace DungeonExplorer
             return roomDimensions;
         }
 
-        public Monster GetMonster()
+        private Monster GetMonster()
         {
-            throw new NotImplementedException();
+            return monster;
         }
 
         //Displays the contents of this.roomDisplay to the console
@@ -127,25 +112,41 @@ namespace DungeonExplorer
                 {
                     this.roomDisplay[this.doorPosition, y] = 'D';
                 }
-                int monsterX = this.monsterCoords[0];
-                int monsterY = this.monsterCoords[1];
-                if (y == monsterY)
+                if (monsterCoords != null)
                 {
-                    this.roomDisplay[monsterX, y] = 'M';
+                    int monsterX = this.monsterCoords[0];
+                    int monsterY = this.monsterCoords[1];
+                    if (y == monsterY)
+                    {
+                        this.roomDisplay[monsterX, y] = 'M';
+                    }
                 }
-                int treasureX = this.treasureCoords[0];
-                int treasureY = this.treasureCoords[1];
-                if (y == treasureY)
+                if (treasureCoords != null)
                 {
-                    this.roomDisplay[treasureX, y] = 'T';
+                    int treasureX = this.treasureCoords[0];
+                    int treasureY = this.treasureCoords[1];
+                    if (y == treasureY)
+                    {
+                        this.roomDisplay[treasureX, y] = 'T';
+                    }
                 }
             }
             return;
         }
         public void WelcomePlayer()
         {
-            Console.WriteLine($"Welcome to {this.roomName}");
+            Console.WriteLine($"Welcome to room {this.roomName}");
             Console.WriteLine($"{this.description}");
+            if (monster != null)
+            {
+                Console.WriteLine($"{monster.Breed} {monster.Name} is present! It has {monster.Health} health and does an average of {monster.AverageAttackDamage} attack damage!");
+            }
+            else
+            {
+                Console.WriteLine($"There is no monster in this room!");
+            }
+            Console.WriteLine();
+            return;
         }
     }
 }

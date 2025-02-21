@@ -34,7 +34,8 @@ namespace DungeonExplorer
                 int[] monsterCoord = new int[2] { 3, 5 }; // Setting to -1,-1 indicates no monster
                 int[] treasureCoord = new int[2] { 3, 2 }; // Setting to -1,-1 indicates no treasure
                 //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
-                Room currentRoom = new Room("first", "first room desc", roomSize, doorPosition, monsterCoord, treasureCoord);
+                Monster currentMonster = new Monster("Dennis", "electric car", 100, 50);
+                Room currentRoom = new Room("first", "first room desc", roomSize, doorPosition, currentMonster, monsterCoord);
                 currentRoom.WelcomePlayer();
                 //while: Player can make multiple decisions whilst in the same room, eg view their inventory, then fight, then go to the next room
                 int decision = m_player.GetDecision();
@@ -46,8 +47,8 @@ namespace DungeonExplorer
                 else if (decision == 1)
                 {
                     //Player wants to fight
-                    Monster monster = room.GetMonster();
-                    m_player.Fight(monster);
+                    //Monster monster = room.GetMonster();
+                    //m_player.Fight(monster);
                     //There needs to be a monster class that contains the hp and the defence and attacking strength
                     //We can calculate the player attack and defense strength using the Player Class
                     //After defeating the monster, the player has the option to pick up and equip a new 
@@ -79,6 +80,7 @@ namespace DungeonExplorer
             Console.WriteLine($"Welcome to {m_gameName}");
             Console.WriteLine("Press any key to start the game. . .");
             Console.ReadKey();
+            ClearConsole();
             return;
         }
         public void FinishGame()
