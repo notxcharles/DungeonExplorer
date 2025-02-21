@@ -7,16 +7,35 @@ namespace DungeonExplorer
     {
         public string Name { get; private set; }
         public int Health { get; private set; }
-        private List<string> inventory = new List<string>();
-
+        private List<Weapon> inventory = new List<Weapon>();
+        private int maxInventorySpace = 4;
+        private Weapon currentEquippedWeapon;
         public Player(string name, int health) 
         {
             Name = name;
             Health = health;
         }
-        public void PickUpItem(string item)
+        public void PickUpWeapon(Weapon weapon)
         {
-
+            //Check if the inventory is full (we'll say full=4 weapons)-
+            if (inventory.Count == maxInventorySpace)
+            {
+                Console.WriteLine("Your inventory is full! You cannot pick up any more weapons");
+            }
+            else
+            {
+                inventory.Add(weapon);
+                Console.WriteLine($"{weapon.Type} has been added to your inventory");
+            }
+            return;
+        }
+        public void EquipDifferentWeapon(int weaponIndex)
+        {
+            Weapon weaponToEquip = inventory[weaponIndex];
+            inventory.Add(currentEquippedWeapon);
+            Weapon previousEquippedWeapon = currentEquippedWeapon;
+            currentEquippedWeapon = weaponToEquip;
+            Console.WriteLine($"{currentEquippedWeapon.Type} has been equipped. {previousEquippedWeapon.Type} has been added to your inventory");
         }
         public int GetDecision()
         {
@@ -61,20 +80,25 @@ namespace DungeonExplorer
 
         public void ViewInventory()
         {
+            // if there are items in the inventory, return the number of items
             if (inventory.Count == 0)
             {
-                Console.WriteLine("You have no items in your inventory");
+                Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapons.");
             }
             else
             {
                 Console.WriteLine($"Items in your inventory:");
                 for (int i = 0; i < inventory.Count; i++)
                 {
-                    Console.WriteLine($"- {inventory[i]}");
+                    Console.WriteLine($"- {inventory[i].CreateSummary()}");
                 }
+                Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently holding {inventory.Count} weapons.");
             }
-
             return;
+        }
+        public int GetItemsInInventory()
+        {
+            return inventory.Count;
         }
     }
 }
