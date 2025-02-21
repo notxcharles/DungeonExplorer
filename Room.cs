@@ -10,6 +10,7 @@ namespace DungeonExplorer
         public string RoomDescription { get; private set; }
         public Monster Monster { get; private set; }
         public bool DoorIsLocked { get; private set; }
+        public Weapon WeaponInTheRoom { get; private set; }
         private int[] roomDimensions;
         private int doorPosition;
         private int[] monsterCoords;
@@ -77,7 +78,7 @@ namespace DungeonExplorer
             DoorIsLocked = true;
             RenderRoom();
         }
-        public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
+        public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates, Weapon weapon)
         {
             m_random = new Random();
             RoomName = GetRoomName();
@@ -88,6 +89,7 @@ namespace DungeonExplorer
             this.doorPosition = doorPosition;
             monsterCoords = monsterCoordinates;
             Monster = monster;
+            WeaponInTheRoom = weapon;
             roomDisplay = new char[roomX, roomY];
             DoorIsLocked = true;
             RenderRoom();
@@ -226,7 +228,7 @@ namespace DungeonExplorer
         public void WelcomePlayer()
         {
             Console.WriteLine($"Welcome to room {this.RoomName}");
-            Console.WriteLine($"{this.RoomDescription}");
+            Console.WriteLine($"{this.RoomDescription}\n");
             if (Monster != null)
             {
                 Console.WriteLine($"A {Monster.Breed} called {Monster.Name} is present! It has {Monster.Health} health and does an average of {Monster.AverageAttackDamage} attack damage!");
@@ -235,7 +237,11 @@ namespace DungeonExplorer
             {
                 Console.WriteLine($"There is no monster in this room!");
             }
-            DisplayRoom();
+            if (WeaponInTheRoom != null)
+            {
+                Console.WriteLine($"There is a weapon inside this room- A {WeaponInTheRoom.CreateSummary()}");
+            }
+            //DisplayRoom();
             return;
         }
     }
