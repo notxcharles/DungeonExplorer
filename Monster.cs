@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    
-    class Monster
+    public class Monster
     {
         public string Name { get; private set; }
         public string Breed { get; private set; }
         public int Health { get; private set; }
-        private int m_averageAttack;
+        public int AverageAttackDamage { get; private set; }
         private Random m_random;
         public Monster(string name, string breed, int health, int averageAttack)
         {
             Name = name;
             Breed = breed;
             Health = health;
-            m_averageAttack = averageAttack;
+            AverageAttackDamage = averageAttack;
             m_random = new Random();
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
@@ -35,8 +34,8 @@ namespace DungeonExplorer
             //m_averageAttack represents the mean of a normal distribution
             //attackDamage will be a random datapoint in the distribution
             int stdDevPercentage = 5;
-            double multiplier = CreateRandomGaussianNumber(m_averageAttack, m_averageAttack / stdDevPercentage);
-            int attackDamage = Convert.ToInt32(m_averageAttack * multiplier);
+            double multiplier = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
+            int attackDamage = Convert.ToInt32(AverageAttackDamage * multiplier);
             return attackDamage;
         }
     }
