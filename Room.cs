@@ -5,16 +5,17 @@ namespace DungeonExplorer
 {
     public class Room
     {
-        private string roomName;
-        private string description;
+        public string roomName { get; private set; }
+        public string description { get; private set; }
+        public Monster monster { get; private set; }
+        public bool doorIsLocked { get; private set; }
         private int[] roomDimensions;
         private int doorPosition;
         private int[] monsterCoords;
         private int[] treasureCoords;
         private char[,] roomDisplay;
-        private Monster monster;
+        
         private bool isTreasure = true;
-        private bool doorIsLocked = true;
 
         // A monster and an exit door in this room
         public Room(string roomName, string description, int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
@@ -27,7 +28,8 @@ namespace DungeonExplorer
             this.doorPosition = doorPosition;
             this.monsterCoords = monsterCoordinates;
             this.monster = monster;
-            this.roomDisplay = new char[roomX + 2, roomY + 2];
+            roomDisplay = new char[roomX + 2, roomY + 2];
+            doorIsLocked = true;
             RenderRoom();
         }
         // The final room, there is treasure in this room but no door or monster

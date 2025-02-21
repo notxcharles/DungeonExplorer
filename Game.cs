@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Threading;
 
 namespace DungeonExplorer
 {
@@ -52,16 +53,21 @@ namespace DungeonExplorer
                     //There needs to be a monster class that contains the hp and the defence and attacking strength
                     //We can calculate the player attack and defense strength using the Player Class
                     //After defeating the monster, the player has the option to pick up and equip a new 
+                    roomNumber += 1;
                 }
                 else if (decision == 2)
                 {
                     //Player wants to goes to next room
-                    m_player.NextRoom();
-                    //Player can only use the door when the monster is defeated
+                    if (NextRoom(currentRoom))
+                    {
+                        Thread.Sleep(3500);
+                        roomNumber += 1;
+                        continue;
+                    }
                 }
 
-
-                roomNumber += 1;
+                Thread.Sleep(3600);
+                ClearConsole();
             }
             // Once the player has defeated all of the rooms, the last room will have the treasure
             // When the player retrieves the loot they have won the game
@@ -82,6 +88,16 @@ namespace DungeonExplorer
             Console.ReadKey();
             ClearConsole();
             return;
+        }
+        public bool NextRoom(Room room)
+        {
+            if (room.doorIsLocked == false)
+            {
+                Console.WriteLine("The door is unlocked. You proceed to the next room. . .");
+                return true;
+            }
+            Console.WriteLine("The door is locked! Have you defeated the monster?");
+            return false;
         }
         public void FinishGame()
         {
