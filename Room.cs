@@ -141,13 +141,13 @@ namespace DungeonExplorer
             Console.WriteLine($"{this.description}");
             if (monster != null)
             {
-                Console.WriteLine($"{monster.Breed} {monster.Name} is present! It has {monster.Health} health and does an average of {monster.AverageAttackDamage} attack damage!");
+                Console.WriteLine($"A {monster.Breed} called {monster.Name} is present! It has {monster.Health} health and does an average of {monster.AverageAttackDamage} attack damage!");
             }
             else
             {
                 Console.WriteLine($"There is no monster in this room!");
             }
-            Console.WriteLine();
+            DisplayRoom();
             return;
         }
     }
