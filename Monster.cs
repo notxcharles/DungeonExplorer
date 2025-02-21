@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace DungeonExplorer
 {
@@ -13,6 +14,57 @@ namespace DungeonExplorer
         public int Health { get; private set; }
         public int AverageAttackDamage { get; private set; }
         private Random m_random;
+        private string[] m_monsterNames = new string[] {
+            "Walter White",
+            "Joffrey Baratheon",
+            "Cersei Lannister",
+            "Slade Wilson",
+            "Draco Malfoy",
+            "Tyrion Lannister",
+            "Frank Underwood",
+            "The Governor",
+            "Wilson Fisk",
+            "Negan",
+            "Pete Campbell",
+            "Alaric Saltzman",
+            "Dexter Morgan",
+            "Tommen Baratheon",
+            "Annalise Keating",
+            "Jack Torrance",
+            "Jack Torrance",
+            "Omar Little",
+            "Bane",
+            "Regina Mills",
+            "Kai Parker",
+            "Dennis Reynolds",
+            "Darth Maul",
+            "Count Dooku",
+            "Jabba the Hutt",
+        };
+        private string[] m_monsterBreeds = new string[] {
+            "Goblin",
+            "Troll",
+            "Werewolf",
+            "Vampire",
+            "Zombie",
+            "Dragon",
+            "Skeleton",
+            "Ghoul",
+            "Banshee",
+            "Witch",
+            "Demon",
+            "Phantom",
+            "Hydra",
+            "Orc",
+            "Minotaur",
+            "Kraken",
+            "Giant",
+            "Hellhound",
+            "Ogre",
+            "Cyclopes"
+        };
+
+
         public Monster(string name, string breed, int health, int averageAttack)
         {
             Name = name;
@@ -20,6 +72,27 @@ namespace DungeonExplorer
             Health = health;
             AverageAttackDamage = averageAttack;
             m_random = new Random();
+        }
+        public Monster(int health, int averageAttack)
+        {
+            m_random = new Random();
+            Name = GetMonsterName();
+            Breed = GetMonsterBreed();
+            Health = health;
+            AverageAttackDamage = averageAttack;
+            
+        }
+        private string GetMonsterName()
+        {
+            int index = m_random.Next(0, m_monsterNames.Length);
+            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
+            return m_monsterNames[index];
+        }
+        private string GetMonsterBreed()
+        {
+            int index = m_random.Next(0, m_monsterBreeds.Length);
+            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
+            return m_monsterBreeds[index];
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
         {
