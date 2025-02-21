@@ -54,8 +54,28 @@ namespace DungeonExplorer
                 {
                     //Player wants to view inventory
                     m_player.ViewInventory();
+                    if (m_player.GetItemsInInventory() > 0)
+                    {
+                        //Player has items in their inventory, they can choose to equip a different item
+                    }
                 }
                 else if (decision == 1)
+                {
+                    //player has chosen to change their equipped item
+                }
+                else if (decision == 2)
+                {
+                    //player has chosen to pickup a weapon
+                    if (m_player.GetItemsInInventory() == m_player.maxInventorySpace)
+                    {
+                        Console.WriteLine("Your inventory is full, you may not collect any more weapons");
+                    }
+                    else
+                    {
+                        m_player.PickUpWeapon(currentRoom.WeaponInTheRoom);
+                    }
+                }
+                else if (decision == 3)
                 {
                     //Player wants to fight
                     //Monster monster = room.GetMonster();
@@ -65,7 +85,7 @@ namespace DungeonExplorer
                     //After defeating the monster, the player has the option to pick up and equip a new 
                     roomNumber += 1;
                 }
-                else if (decision == 2)
+                else if (decision == 4)
                 {
                     //Player wants to goes to next room
                     if (NextRoom(currentRoom))
@@ -110,11 +130,13 @@ namespace DungeonExplorer
             int monsterY = m_random.Next(3, roomY - 2); //monsterY must be at least 2 away from the bottom most wall
             //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
             int[] monsterCoords = new int[2] { monsterX, monsterY };
+            int randomDamage = m_random.Next(35, 70);
+            Weapon weapon = new Weapon(randomDamage);
             if (roomName != "" && roomDescription != "")
             {
                 return new Room(roomName, roomDescription, roomDimensions, doorPosition, currentMonster, monsterCoords);
             }
-            return new Room(roomDimensions, doorPosition, currentMonster, monsterCoords);
+            return new Room(roomDimensions, doorPosition, currentMonster, monsterCoords, weapon);
         }
         public bool NextRoom(Room room)
         {
