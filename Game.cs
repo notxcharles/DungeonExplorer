@@ -102,12 +102,14 @@ namespace DungeonExplorer
                 Monster currentMonster = new Monster(100, 20);
                 string roomName = GetRoomName();
                 string roomDescription = GetRoomDescription();
-                int roomX = m_random.Next(5, 12) + 2;
+                int roomX = m_random.Next(5, 12) + 2; //Adding 2 so that the walls inside are accounted for
                 int roomY = m_random.Next(4, 10) + 2;
-                int doorPosition = roomY - 2; // The door is always placed at the top of the room. Door Position controls the horizontal position
-                int[] monsterCoord = new int[2] { 3, 5 }; // Setting to -1,-1 indicates no monster
                 int[] roomDimensions = new int[2] { roomX, roomY }; //This should be viewed as room area, with +2 to each axis
-                Room currentRoom = new Room(roomName, roomDescription, roomDimensions, doorPosition, currentMonster, monsterCoord);
+                int doorPosition = m_random.Next(5, roomX) - 2; // The door is always placed at the top of the room. Door Position controls the horizontal position
+                int monsterX = m_random.Next(1, roomX-2); //monsterX can take the value that the room's x could be
+                int monsterY = m_random.Next(3, roomY-2); //monsterY must be at least 2 away from the bottom most wall
+                int[] monsterCoords = new int[2] { monsterX, monsterY }; // Setting to -1,-1 indicates no monster
+                Room currentRoom = new Room(roomName, roomDescription, roomDimensions, doorPosition, currentMonster, monsterCoords);
                 currentRoom.WelcomePlayer();
                 //while: Player can make multiple decisions whilst in the same room, eg view their inventory, then fight, then go to the next room
                 int decision = m_player.GetDecision();

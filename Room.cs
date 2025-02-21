@@ -28,7 +28,7 @@ namespace DungeonExplorer
             this.doorPosition = doorPosition;
             this.monsterCoords = monsterCoordinates;
             this.monster = monster;
-            roomDisplay = new char[roomX + 2, roomY + 2];
+            roomDisplay = new char[roomX, roomY];
             doorIsLocked = true;
             RenderRoom();
         }
@@ -41,7 +41,7 @@ namespace DungeonExplorer
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
             this.treasureCoords = treasureCoordinates;
-            this.roomDisplay = new char[roomX + 2, roomY + 2];
+            this.roomDisplay = new char[roomX, roomY];
             RenderRoom();
         }
 
@@ -64,13 +64,15 @@ namespace DungeonExplorer
         public void DisplayRoom()
         {
             int yMax = this.roomDisplay.GetLength(1);
+            int xMax = this.roomDisplay.GetLength(0);
+            Console.WriteLine($"This is the room! A height of {xMax - 2} and a height of {yMax - 2}!");
+            
             for (int y = yMax-1; y >= 0; y--) 
             {
                 char[] line = new char[this.roomDisplay.GetLength(0)];
-                int xMax = this.roomDisplay.GetLength(0);
+                
                 for (int x = 0; x < xMax; x++)
                 {
-                    //Console.WriteLine($"{x}, {y}");
                     line[x] = this.roomDisplay[x, y];
                 }
                 Console.WriteLine(line);
@@ -83,18 +85,18 @@ namespace DungeonExplorer
         {
             int xMax = roomDimensions[0];
             int yMax = roomDimensions[1];
-            //Console.WriteLine($"Room of size x={xMax}, y={yMax}:");
+            //Console.WriteLine($"Room of size x={xMax}, y={yMax}, doorpos={doorPosition}:");
             for (int y = 0; y < yMax; y++)
             {
                 for (int x = 0; x < xMax; x++)
                 {
                     if ((y == 0 && x == 0) || (y == yMax - 1 && x == xMax - 1))
                     {
-                        this.roomDisplay[x, y] = '/';
+                        this.roomDisplay[x, y] = '\\';
                     }
                     else if ((y == yMax - 1 && x == 0) || (y == 0 && x == xMax - 1))
                     {
-                        this.roomDisplay[x, y] = '\\';
+                        this.roomDisplay[x, y] = '/';
                     }
                     else if (y == 0 || y == yMax - 1)
                     {
@@ -106,7 +108,7 @@ namespace DungeonExplorer
                     }
                     else
                     {
-                        this.roomDisplay[x, y] = 'o';
+                        this.roomDisplay[x, y] = ' ';
                     }
                 }
                 // Doors, Monsters and Treasures
