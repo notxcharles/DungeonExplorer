@@ -82,6 +82,13 @@ namespace DungeonExplorer
                 }
                 else if (decision == 4)
                 {
+                    //Retreat and heal-
+                    int healthRecovered = m_player.MaxHealth - m_player.Health;
+                    m_player.Health = m_player.MaxHealth;
+                    Console.WriteLine($"\nYou have stepped back and regained {healthRecovered} health");
+                }
+                else if (decision == 5)
+                {
                     //Player wants to goes to next room
                     if (NextRoom(m_currentRoom))
                     {

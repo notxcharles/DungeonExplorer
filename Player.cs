@@ -6,13 +6,15 @@ namespace DungeonExplorer
     public class Player
     {
         public string Name { get; private set; }
-        public int Health { get; private set; }
+        public int MaxHealth { get; private set; }
+        public int Health { get; set; }
         private List<Weapon> inventory = new List<Weapon>();
         public int maxInventorySpace { get; private set; }
         private Weapon currentEquippedWeapon;
         public Player(string name, int health) 
         {
             Name = name;
+            MaxHealth = health;
             Health = health;
             maxInventorySpace = 4;
             //The player's default starting weapon are their fists
@@ -98,7 +100,8 @@ namespace DungeonExplorer
                 Console.WriteLine("(1) Change Equipped Item");
                 Console.WriteLine("(2) Pick up weapon");
                 Console.WriteLine($"(3) Attack Monster with {currentEquippedWeapon.Type}");
-                Console.WriteLine("(4) Open the door");
+                Console.WriteLine("(4) Retreat and heal");
+                Console.WriteLine("(5) Open the door");
                 Console.WriteLine("(9) Exit game");
                 ConsoleKeyInfo key = Console.ReadKey();
                 try
