@@ -49,9 +49,9 @@ namespace DungeonExplorer
         }
         private string GetWeaponType()
         {
-            int index = m_random.Next(0, weaponNames.Length);
+            int index = m_random.Next(0, weaponTypes.Length);
             Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
-            return weaponNames[index];
+            return weaponTypes[index];
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
         {
