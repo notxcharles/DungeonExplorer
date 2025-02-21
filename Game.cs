@@ -109,7 +109,7 @@ namespace DungeonExplorer
         }
         public bool NextRoom(Room room)
         {
-            if (room.doorIsLocked == false)
+            if (room.DoorIsLocked == false)
             {
                 Console.WriteLine("The door is unlocked. You proceed to the next room. . .");
                 return true;

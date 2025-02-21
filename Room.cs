@@ -6,10 +6,10 @@ namespace DungeonExplorer
 {
     public class Room
     {
-        public string roomName { get; private set; }
-        public string description { get; private set; }
-        public Monster monster { get; private set; }
-        public bool doorIsLocked { get; private set; }
+        public string RoomName { get; private set; }
+        public string RoomDescription { get; private set; }
+        public Monster Monster { get; private set; }
+        public bool DoorIsLocked { get; private set; }
         private int[] roomDimensions;
         private int doorPosition;
         private int[] monsterCoords;
@@ -65,33 +65,34 @@ namespace DungeonExplorer
         public Room(string roomName, string description, int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
         {
             m_random = new Random();
-            this.roomName = roomName;
-            this.description = description;
+            this.RoomName = roomName;
+            this.RoomDescription = description;
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
             this.doorPosition = doorPosition;
             monsterCoords = monsterCoordinates;
-            this.monster = monster;
+            Monster = monster;
             roomDisplay = new char[roomX, roomY];
-            doorIsLocked = true;
+            DoorIsLocked = true;
             RenderRoom();
         }
         public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
         {
             m_random = new Random();
-            roomName = GetRoomName();
-            description = GetRoomDescription();
+            RoomName = GetRoomName();
+            RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
             this.doorPosition = doorPosition;
             monsterCoords = monsterCoordinates;
-            this.monster = monster;
+            Monster = monster;
             roomDisplay = new char[roomX, roomY];
-            doorIsLocked = true;
+            DoorIsLocked = true;
             RenderRoom();
         }
+
         // The final room, there is treasure in this room but no door or monster
         public Room(string roomName, string description, int[] roomDimensions, int[] treasureCoordinates)
         {
@@ -108,8 +109,8 @@ namespace DungeonExplorer
         public Room(int[] roomDimensions, int[] treasureCoordinates)
         {
             m_random = new Random();
-            roomName = GetRoomName();
-            description = GetRoomDescription();
+            RoomName = GetRoomName();
+            RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
             this.roomDimensions = roomDimensions;
@@ -132,7 +133,7 @@ namespace DungeonExplorer
 
         public string GetDescription()
         {
-            return description;
+            return RoomDescription;
         }
 
         public int[] GetDimensions()
@@ -142,7 +143,7 @@ namespace DungeonExplorer
 
         private Monster GetMonster()
         {
-            return monster;
+            return Monster;
         }
 
         //Displays the contents of this.roomDisplay to the console
@@ -224,11 +225,11 @@ namespace DungeonExplorer
         }
         public void WelcomePlayer()
         {
-            Console.WriteLine($"Welcome to room {this.roomName}");
-            Console.WriteLine($"{this.description}");
-            if (monster != null)
+            Console.WriteLine($"Welcome to room {this.RoomName}");
+            Console.WriteLine($"{this.RoomDescription}");
+            if (Monster != null)
             {
-                Console.WriteLine($"A {monster.Breed} called {monster.Name} is present! It has {monster.Health} health and does an average of {monster.AverageAttackDamage} attack damage!");
+                Console.WriteLine($"A {Monster.Breed} called {Monster.Name} is present! It has {Monster.Health} health and does an average of {Monster.AverageAttackDamage} attack damage!");
             }
             else
             {

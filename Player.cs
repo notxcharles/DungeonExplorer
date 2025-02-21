@@ -18,13 +18,11 @@ namespace DungeonExplorer
         {
 
         }
-        public string InventoryContents()
-        {
-            return string.Join(", ", inventory);
-        }
         public int GetDecision()
         {
-            Console.WriteLine($"Your health: {this.Health}");
+
+            Console.WriteLine($"\nCharacter Details:");
+            Console.WriteLine($"Health: {this.Health}/100");
             
             bool recievedValidInput = false;
             while (recievedValidInput == false)
@@ -57,8 +55,6 @@ namespace DungeonExplorer
                 {
                     Console.WriteLine($"{key} was pressed. Please press 0, 1, 2 or 9");
                 }
-
-                
             }
             return -1;
         }
@@ -77,12 +73,7 @@ namespace DungeonExplorer
                     Console.WriteLine($"- {inventory[i]}");
                 }
             }
-            return;
-        }
-        public void NextRoom()
-        {
-            //check if the player is allowed to go to the next room
-            throw new NotImplementedException();
+
             return;
         }
     }
