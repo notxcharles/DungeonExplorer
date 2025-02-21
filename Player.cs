@@ -35,10 +35,50 @@ namespace DungeonExplorer
         public void EquipDifferentWeapon(int weaponIndex)
         {
             Weapon weaponToEquip = inventory[weaponIndex];
+            inventory.Remove(weaponToEquip);
             inventory.Add(currentEquippedWeapon);
             Weapon previousEquippedWeapon = currentEquippedWeapon;
             currentEquippedWeapon = weaponToEquip;
             Console.WriteLine($"{currentEquippedWeapon.Type} has been equipped. {previousEquippedWeapon.Type} has been added to your inventory");
+            return;
+        }
+        public int ShowWeaponsInInventory()
+        {
+            if (inventory.Count == 0)
+            {
+                Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapon(s).");
+                return -1;
+            }
+            else
+            {
+                while (true)
+                {
+                    Console.WriteLine($"Items in your inventory:");
+                    for (int i = 0; i < inventory.Count; i++)
+                    {
+                        Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
+                    }
+                    Console.WriteLine($"What weapon would you like to equip?");
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    try
+                    {
+                        int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
+                        if (keyAsInt >= 0 && keyAsInt < inventory.Count)
+                        {
+                            return keyAsInt;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{key} was pressed. You must press a key that corresponds to a weapon");
+                        }
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine($"{key} was pressed. You may only press a key that corresponds to a weapon");
+                    }
+                }
+            }
+            return -1;
         }
         public int GetDecision()
         {

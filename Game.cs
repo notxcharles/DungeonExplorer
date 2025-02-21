@@ -62,6 +62,8 @@ namespace DungeonExplorer
                 else if (decision == 1)
                 {
                     //player has chosen to change their equipped item
+                    int weaponChosen = m_player.ShowWeaponsInInventory();
+                    m_player.EquipDifferentWeapon(weaponChosen);
                 }
                 else if (decision == 2)
                 {
