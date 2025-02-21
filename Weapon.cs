@@ -34,5 +34,10 @@ namespace DungeonExplorer
             int attackDamage = Convert.ToInt32(AverageDamage * multiplier);
             return attackDamage;
         }
+        public string CreateSummary()
+        {
+            string summary = ($"{Type}, dealing an average of {AverageDamage} per attack");
+            return summary;
+        }
     }
 }
