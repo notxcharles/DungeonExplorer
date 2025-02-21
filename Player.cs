@@ -8,12 +8,15 @@ namespace DungeonExplorer
         public string Name { get; private set; }
         public int Health { get; private set; }
         private List<Weapon> inventory = new List<Weapon>();
-        private int maxInventorySpace = 4;
+        public int maxInventorySpace { get; private set; }
         private Weapon currentEquippedWeapon;
         public Player(string name, int health) 
         {
             Name = name;
             Health = health;
+            maxInventorySpace = 4;
+            //The player's default starting weapon are their fists
+            currentEquippedWeapon = new Weapon("Fists", 30);
         }
         public void PickUpWeapon(Weapon weapon)
         {
@@ -48,8 +51,10 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("What do you want to do?");
                 Console.WriteLine("(0) View Inventory");
-                Console.WriteLine("(1) Attack Monster");
-                Console.WriteLine("(2) Open the door");
+                Console.WriteLine("(1) Change Equipped Item");
+                Console.WriteLine("(2) Pick up weapon");
+                Console.WriteLine($"(3) Attack Monster with {currentEquippedWeapon.Type}");
+                Console.WriteLine("(4) Open the door");
                 Console.WriteLine("(9) Exit game");
                 ConsoleKeyInfo key = Console.ReadKey();
                 try
