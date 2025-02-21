@@ -65,7 +65,18 @@ namespace DungeonExplorer
 
         public void ViewInventory()
         {
-            throw new NotImplementedException();
+            if (inventory.Count == 0)
+            {
+                Console.WriteLine("You have no items in your inventory");
+            }
+            else
+            {
+                Console.WriteLine($"Items in your inventory:");
+                for (int i = 0; i < inventory.Count; i++)
+                {
+                    Console.WriteLine($"- {inventory[i]}");
+                }
+            }
             return;
         }
         public void NextRoom()
