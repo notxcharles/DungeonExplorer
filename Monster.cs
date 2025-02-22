@@ -11,7 +11,8 @@ namespace DungeonExplorer
     {
         public string Name { get; private set; }
         public string Breed { get; private set; }
-        public int Health { get; private set; }
+        public int Health { get; set; }
+        public int MaxHealth { get; set; }
         public int AverageAttackDamage { get; private set; }
         private Random m_random;
         private string[] m_monsterNames = new string[] {
@@ -70,6 +71,7 @@ namespace DungeonExplorer
             Name = name;
             Breed = breed;
             Health = health;
+            MaxHealth = health;
             AverageAttackDamage = averageAttack;
             m_random = new Random();
         }
@@ -79,6 +81,7 @@ namespace DungeonExplorer
             Name = GetMonsterName();
             Breed = GetMonsterBreed();
             Health = health;
+            MaxHealth = health;
             AverageAttackDamage = averageAttack;
             
         }
@@ -107,8 +110,8 @@ namespace DungeonExplorer
             //m_averageAttack represents the mean of a normal distribution
             //attackDamage will be a random datapoint in the distribution
             int stdDevPercentage = 5;
-            double multiplier = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
-            int attackDamage = Convert.ToInt32(AverageAttackDamage * multiplier);
+            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
+            int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
         }
     }

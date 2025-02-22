@@ -10,7 +10,7 @@ namespace DungeonExplorer
     public class Weapon
     {
         public string Type { get; private set; }
-        public int AverageDamage { get; private set; }
+        public int AverageAttackDamage { get; private set; }
         Random m_random;
         private string[] weaponTypes = {
             "Baseball Bat",
@@ -39,13 +39,13 @@ namespace DungeonExplorer
         {
             m_random = new Random();
             Type = type;
-            AverageDamage = weaponAverageDamage;
+            AverageAttackDamage = weaponAverageDamage;
         }
         public Weapon(int weaponAverageDamage)
         {
             m_random = new Random();
             Type = GetWeaponType();
-            AverageDamage = weaponAverageDamage;
+            AverageAttackDamage = weaponAverageDamage;
         }
         private string GetWeaponType()
         {
@@ -66,13 +66,13 @@ namespace DungeonExplorer
             //m_averageAttack represents the mean of a normal distribution
             //attackDamage will be a random datapoint in the distribution
             int stdDevPercentage = 5;
-            double multiplier = CreateRandomGaussianNumber(AverageDamage, AverageDamage / stdDevPercentage);
-            int attackDamage = Convert.ToInt32(AverageDamage * multiplier);
+            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
+            int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
         }
         public string CreateSummary()
         {
-            string summary = ($"{Type}, dealing an average of {AverageDamage} per attack");
+            string summary = ($"{Type}, dealing an average of {AverageAttackDamage} per attack");
             return summary;
         }
     }
