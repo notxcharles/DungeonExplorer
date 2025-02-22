@@ -8,8 +8,8 @@ namespace DungeonExplorer
     {
         public string RoomName { get; private set; }
         public string RoomDescription { get; private set; }
-        public Monster Monster { get; private set; }
-        public bool DoorIsLocked { get; private set; }
+        public Monster Monster { get; set; }
+        public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
         private int[] roomDimensions;
         private int doorPosition;

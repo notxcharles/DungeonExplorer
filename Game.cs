@@ -59,7 +59,7 @@ namespace DungeonExplorer
                 else if (decision == 2)
                 {
                     //player has chosen to pickup a weapon
-                    if (m_player.GetItemsInInventory() == m_player.maxInventorySpace)
+                    if (m_player.GetTotalItemsInInventory() == m_player.maxInventorySpace)
                     {
                         Console.WriteLine("Your inventory is full, you may not collect any more weapons");
                     }
@@ -78,6 +78,7 @@ namespace DungeonExplorer
                     //We can calculate the player attack and defense strength using the Player Class
                     //After defeating the monster, the player has the option to pick up and equip a new 
                     Console.WriteLine("Player wants to fight");
+                    PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
                     roomNumber += 1;
                 }
                 else if (decision == 4)
@@ -147,6 +148,30 @@ namespace DungeonExplorer
             }
             Console.WriteLine("The door is locked! Have you defeated the monster?");
             return false;
+        }
+        public void PlayerFightsMonster(Player player, Monster monster, Room room)
+        {
+            int playerAttackDamage = player.GetAttackDamage();
+            monster.Health -= playerAttackDamage;
+            int monsterAttackDamage = monster.GetAttackDamage();
+            player.Health -= monsterAttackDamage;
+            if (player.Health <= 0)
+            {
+                Console.WriteLine($"The monster has killed you! You took {monsterAttackDamage}. Game Over");
+                Environment.Exit(1);
+            }
+            else if (monster.Health <= 0)
+            {
+                Console.WriteLine($"You have killed the monster! Congratulations!");
+                room.Monster = null;
+                room.DoorIsLocked = false;
+            }
+            else
+            {
+                Console.WriteLine($"You have hit the monster for {playerAttackDamage} damage. The monster now has {monster.Health}{monster.MaxHealth}");
+                Console.WriteLine($"The monster has hit you for {monsterAttackDamage} damage. You now have {player.Health}/{player.MaxHealth}");
+            }
+            return;
         }
         public void FinishGame()
         {

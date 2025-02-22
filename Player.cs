@@ -11,6 +11,7 @@ namespace DungeonExplorer
         private List<Weapon> inventory = new List<Weapon>();
         public int maxInventorySpace { get; private set; }
         private Weapon currentEquippedWeapon;
+        Random m_random;
         public Player(string name, int health) 
         {
             Name = name;
@@ -19,6 +20,7 @@ namespace DungeonExplorer
             maxInventorySpace = 4;
             //The player's default starting weapon are their fists
             currentEquippedWeapon = new Weapon("Fists", 30);
+            m_random = new Random();
         }
         public void PickUpWeapon(Weapon weapon)
         {
@@ -148,9 +150,13 @@ namespace DungeonExplorer
             }
             return;
         }
-        public int GetItemsInInventory()
+        public int GetTotalItemsInInventory()
         {
             return inventory.Count;
+        }
+        public int GetAttackDamage()
+        {
+            return currentEquippedWeapon.GetAttackDamage();
         }
     }
 }
