@@ -33,17 +33,7 @@ namespace DungeonExplorer
                 // Each room has one monster which the player much fight before the door to the next room is unlocked
                 // The player can pick up different types of weapons- these will affect his damage to the monster
                 // The player must also manage their health bar, the monster can defend against attacks
-                //if (roomNumber == m_numberOfRooms-1)
-                //{
-                //    //Last room, only this room will contain treasure
-                //    Console.WriteLine("Treasure room");
-                //    int[] treasureCoord = new int[2] { 3, 2 }; // Setting to -1,-1 indicates no treasure
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Regular room");
-                //}
-                m_currentRoom.WelcomePlayer();
+                m_currentRoom.WelcomePlayer(roomNumber);
                 int decision = m_player.GetDecision();
                 if (decision == 0)
                 {
@@ -72,12 +62,6 @@ namespace DungeonExplorer
                 else if (decision == 3)
                 {
                     //Player wants to fight
-                    //Monster monster = room.GetMonster();
-                    //m_player.Fight(monster);
-                    //There needs to be a monster class that contains the hp and the defence and attacking strength
-                    //We can calculate the player attack and defense strength using the Player Class
-                    //After defeating the monster, the player has the option to pick up and equip a new 
-                    Console.WriteLine("Player wants to fight");
                     PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
                 }
                 else if (decision == 4)
@@ -116,6 +100,7 @@ namespace DungeonExplorer
         {
             ClearConsole();
             Console.WriteLine($"Welcome to {m_gameName}");
+            Console.WriteLine($"You must battle your way through each room. In each room you will have to defeat a monster who will have the the key to unlock the door!");
             Console.WriteLine("Press any key to start the game. . .");
             Console.ReadKey();
             ClearConsole();
@@ -176,7 +161,7 @@ namespace DungeonExplorer
         }
         public void FinishGame()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Congratulations. You have won! Here is your treasure");
             return;
         }
     }

@@ -225,9 +225,9 @@ namespace DungeonExplorer
             }
             return;
         }
-        public void WelcomePlayer()
+        public void WelcomePlayer(int roomNumber)
         {
-            Console.WriteLine($"Welcome to room {this.RoomName}");
+            Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber})");
             Console.WriteLine($"{this.RoomDescription}\n");
             if (Monster != null)
             {

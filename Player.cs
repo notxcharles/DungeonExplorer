@@ -106,6 +106,7 @@ namespace DungeonExplorer
                 Console.WriteLine("(5) Open the door");
                 Console.WriteLine("(9) Exit game");
                 ConsoleKeyInfo key = Console.ReadKey();
+                Console.WriteLine("");
                 try
                 {
                     int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
