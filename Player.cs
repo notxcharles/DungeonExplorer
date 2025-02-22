@@ -92,7 +92,7 @@ namespace DungeonExplorer
         {
 
             Console.WriteLine($"\nCharacter Details:");
-            Console.WriteLine($"Health: {this.Health}/100");
+            Console.WriteLine($"Health: {Health}/100");
             
             bool recievedValidInput = false;
             while (recievedValidInput == false)
@@ -109,7 +109,7 @@ namespace DungeonExplorer
                 try
                 {
                     int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                    if (keyAsInt >= 0 && keyAsInt <= 4)
+                    if (keyAsInt >= 0 && keyAsInt <= 5)
                     {
                         Console.WriteLine($"Player pressed {keyAsInt}");
                         return keyAsInt;
@@ -121,7 +121,7 @@ namespace DungeonExplorer
                     }
                     else
                     {
-                        Console.WriteLine($"{key} was pressed. You must press 0, 1, 2 or 9");
+                        Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
                     }
                 }
                 catch (FormatException e)

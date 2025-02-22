@@ -79,7 +79,6 @@ namespace DungeonExplorer
                     //After defeating the monster, the player has the option to pick up and equip a new 
                     Console.WriteLine("Player wants to fight");
                     PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
-                    roomNumber += 1;
                 }
                 else if (decision == 4)
                 {
@@ -94,10 +93,12 @@ namespace DungeonExplorer
                     if (NextRoom(m_currentRoom))
                     {
                         roomNumber += 1;
+                        m_currentRoom = CreateMonsterRoom();
                     }
                 }
 
-                Thread.Sleep(3600);
+                
+                Thread.Sleep(5000);
                 ClearConsole();
             }
             // Once the player has defeated all of the rooms, the last room will have the treasure
@@ -157,18 +158,18 @@ namespace DungeonExplorer
             player.Health -= monsterAttackDamage;
             if (player.Health <= 0)
             {
-                Console.WriteLine($"The monster has killed you! You took {monsterAttackDamage}. Game Over");
+                Console.WriteLine($"The monster has killed you! You took {monsterAttackDamage} damage. Game Over");
                 Environment.Exit(1);
             }
             else if (monster.Health <= 0)
             {
-                Console.WriteLine($"You have killed the monster! Congratulations!");
+                Console.WriteLine($"You have killed the monster! You did {playerAttackDamage} damage. Congratulations!");
                 room.Monster = null;
                 room.DoorIsLocked = false;
             }
             else
             {
-                Console.WriteLine($"You have hit the monster for {playerAttackDamage} damage. The monster now has {monster.Health}{monster.MaxHealth}");
+                Console.WriteLine($"You have hit the monster for {playerAttackDamage} damage. The monster now has {monster.Health}/{monster.MaxHealth}");
                 Console.WriteLine($"The monster has hit you for {monsterAttackDamage} damage. You now have {player.Health}/{player.MaxHealth}");
             }
             return;
