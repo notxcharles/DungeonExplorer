@@ -15,24 +15,20 @@ namespace DungeonExplorer
 
         public Game(string gameName, int amountOfRooms, Player player)
         {
+            // Initialize the game with one room and one player
             m_gameName = gameName;
             m_numberOfRooms = amountOfRooms;
             m_player = player;
-            // Initialize the game with one room and one player
+            
             m_random = new Random();
         }
         public void Start()
         {
-            // Change the playing logic into true and populate the while loop
             int roomNumber = 0;
             GameStartDisplay();
             m_currentRoom = CreateMonsterRoom();
             while (roomNumber < m_numberOfRooms)
             {
-                // Let's create a game where the player needs to fight monsters in multiple rooms before completing the game to find a treasure in the final room
-                // Each room has one monster which the player much fight before the door to the next room is unlocked
-                // The player can pick up different types of weapons- these will affect his damage to the monster
-                // The player must also manage their health bar, the monster can defend against attacks
                 m_currentRoom.WelcomePlayer(roomNumber);
                 int decision = m_player.GetDecision();
                 if (decision == 0)
