@@ -63,7 +63,8 @@ namespace DungeonExplorer
         };
         Random m_random;
         // A monster and an exit door in this room
-        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates)
+        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, 
+            Monster monster, int[] monsterCoordinates)
         {
             m_random = new Random();
             this.RoomName = roomName;
@@ -78,7 +79,8 @@ namespace DungeonExplorer
             DoorIsLocked = true;
             RenderRoom();
         }
-        public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates, Weapon weapon)
+        public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates, 
+            Weapon weapon)
         {
             m_random = new Random();
             RoomName = GetRoomName();
@@ -231,7 +233,8 @@ namespace DungeonExplorer
             Console.WriteLine($"{this.RoomDescription}\n");
             if (Monster != null)
             {
-                Console.WriteLine($"A {Monster.Breed} called {Monster.Name} is present! It has {Monster.Health} health and does an average of {Monster.AverageAttackDamage} attack damage!");
+                Console.WriteLine($"A {Monster.Breed} called {Monster.Name} is present! It has {Monster.Health} " +
+                    $"health and does an average of {Monster.AverageAttackDamage} attack damage!");
             }
             else
             {

@@ -76,19 +76,16 @@ namespace DungeonExplorer
                         m_currentRoom = CreateMonsterRoom();
                     }
                 }
-
-                
                 Thread.Sleep(5000);
                 ClearConsole();
             }
-            // Once the player has defeated all of the rooms, the last room will have the treasure
-            // When the player retrieves the loot they have won the game
             FinishGame();
             return;
         }
         public void ClearConsole()
         {
             Console.Clear();
+            // Ocasionally, Console.Clear() won't completely clear the console, so the following line solves that error
             Console.WriteLine("\x1b[3J");
             return;
         }
@@ -96,7 +93,8 @@ namespace DungeonExplorer
         {
             ClearConsole();
             Console.WriteLine($"Welcome to {m_gameName}");
-            Console.WriteLine($"You must battle your way through each room. In each room you will have to defeat a monster who will have the the key to unlock the door!");
+            Console.WriteLine($"You must battle your way through each room. In each room you will have to defeat a " +
+                $"monster who will have the the key to unlock the door!");
             Console.WriteLine("Press any key to start the game. . .");
             Console.ReadKey();
             ClearConsole();
@@ -107,8 +105,10 @@ namespace DungeonExplorer
             Monster currentMonster = new Monster(monsterHealth, monsterDamage);
             int roomX = m_random.Next(5, 12) + 2; //Adding 2 so that the walls inside are accounted for
             int roomY = m_random.Next(4, 10) + 2;
-            int[] roomDimensions = new int[2] { roomX, roomY }; //This should be viewed as room area, we add +2 to each axis to give room for walls
-            int doorPosition = m_random.Next(5, roomX) - 2; // The door is always placed at the top of the room. Door Position controls the horizontal position
+            //This should be viewed as room area, we add +2 to each axis to give room for walls
+            int[] roomDimensions = new int[2] { roomX, roomY }; 
+            // The door is always placed at the top of the room. Door Position controls the horizontal position
+            int doorPosition = m_random.Next(5, roomX) - 2; 
             int monsterX = m_random.Next(1, roomX - 2); //monsterX can take the value that the room's x could be
             int monsterY = m_random.Next(3, roomY - 2); //monsterY must be at least 2 away from the bottom most wall
             //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
@@ -150,8 +150,10 @@ namespace DungeonExplorer
             }
             else
             {
-                Console.WriteLine($"You have hit the monster for {playerAttackDamage} damage. The monster now has {monster.Health}/{monster.MaxHealth}");
-                Console.WriteLine($"The monster has hit you for {monsterAttackDamage} damage. You now have {player.Health}/{player.MaxHealth}");
+                Console.WriteLine($"You have hit the monster for {playerAttackDamage} damage. " +
+                    $"The monster now has {monster.Health}/{monster.MaxHealth}");
+                Console.WriteLine($"The monster has hit you for {monsterAttackDamage} damage. " +
+                    $"You now have {player.Health}/{player.MaxHealth}");
             }
             return;
         }

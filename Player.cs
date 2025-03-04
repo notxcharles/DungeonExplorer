@@ -47,7 +47,8 @@ namespace DungeonExplorer
             inventory.Add(currentEquippedWeapon);
             Weapon previousEquippedWeapon = currentEquippedWeapon;
             currentEquippedWeapon = weaponToEquip;
-            Console.WriteLine($"{currentEquippedWeapon.Type} has been equipped. {previousEquippedWeapon.Type} has been added to your inventory");
+            Console.WriteLine($"{currentEquippedWeapon.Type} has been equipped. " +
+                $"{previousEquippedWeapon.Type} has been added to your inventory");
             return;
         }
         public int ShowWeaponsInInventory()
@@ -77,12 +78,14 @@ namespace DungeonExplorer
                         }
                         else
                         {
-                            Console.WriteLine($"{key} was pressed. You must press a key that corresponds to a weapon");
+                            Console.WriteLine($"{key} was pressed. You must press a key that " +
+                                $"corresponds to a weapon");
                         }
                     }
                     catch (FormatException e)
                     {
-                        Console.WriteLine($"{key} was pressed. You may only press a key that corresponds to a weapon");
+                        Console.WriteLine($"{key} was pressed. You may only press a key that " +
+                            $"corresponds to a weapon");
                     }
                 }
             }
@@ -147,7 +150,8 @@ namespace DungeonExplorer
                 {
                     Console.WriteLine($"- {inventory[i].CreateSummary()}");
                 }
-                Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently holding {inventory.Count} weapons.");
+                Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently " +
+                    $"holding {inventory.Count} weapons.");
             }
             return;
         }
