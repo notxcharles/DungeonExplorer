@@ -10,7 +10,7 @@ namespace DungeonExplorer
         private Player m_player;
         private Room m_currentRoom;
         private int m_numberOfRooms;
-        private Random m_random;
+        private static Random m_random = new Random();
         
 
         public Game(string gameName, int amountOfRooms, Player player)
@@ -19,8 +19,6 @@ namespace DungeonExplorer
             m_gameName = gameName;
             m_numberOfRooms = amountOfRooms;
             m_player = player;
-            
-            m_random = new Random();
         }
         public void Start()
         {

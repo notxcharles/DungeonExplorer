@@ -11,7 +11,7 @@ namespace DungeonExplorer
     {
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
-        Random m_random;
+        private static Random m_random = new Random();
         private string[] weaponTypes = {
             "Baseball Bat",
             "Machete",
@@ -37,7 +37,6 @@ namespace DungeonExplorer
         };
         public Weapon(string type, int weaponAverageDamage)
         {
-            m_random = new Random();
             Type = type;
             AverageAttackDamage = weaponAverageDamage;
         }

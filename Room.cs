@@ -61,12 +61,11 @@ namespace DungeonExplorer
             "A pit of bones, some yellowed with age, others still fresh. The walls are scratched, as if something has tried—and failed—to escape.",
             "A vast underground lake, the water impossibly still. Jagged rocks rise from the surface like teeth, and something beneath the water disturbs the reflection."
         };
-        Random m_random;
+        private static Random m_random = new Random();
         // A monster and an exit door in this room
         public Room(string roomName, string description, int[] roomDimensions, int doorPosition, 
             Monster monster, int[] monsterCoordinates)
         {
-            m_random = new Random();
             this.RoomName = roomName;
             this.RoomDescription = description;
             int roomX = roomDimensions[0];
@@ -82,7 +81,6 @@ namespace DungeonExplorer
         public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates, 
             Weapon weapon)
         {
-            m_random = new Random();
             RoomName = GetRoomName();
             RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
@@ -100,7 +98,6 @@ namespace DungeonExplorer
         // The final room, there is treasure in this room but no door or monster
         public Room(string roomName, string description, int[] roomDimensions, int[] treasureCoordinates)
         {
-            m_random = new Random();
             roomName = GetRoomName();
             description = GetRoomDescription();
             int roomX = roomDimensions[0];
@@ -112,7 +109,6 @@ namespace DungeonExplorer
         }
         public Room(int[] roomDimensions, int[] treasureCoordinates)
         {
-            m_random = new Random();
             RoomName = GetRoomName();
             RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
@@ -125,13 +121,11 @@ namespace DungeonExplorer
         private string GetRoomName()
         {
             int index = m_random.Next(0, m_roomNames.Length);
-            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
             return m_roomNames[index];
         }
         private string GetRoomDescription()
         {
             int index = m_random.Next(0, m_roomDescriptions.Length);
-            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
             return m_roomDescriptions[index];
         }
 

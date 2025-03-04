@@ -14,7 +14,7 @@ namespace DungeonExplorer
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int AverageAttackDamage { get; private set; }
-        private Random m_random;
+        private static Random m_random = new Random();
         private string[] m_monsterNames = new string[] {
             "Walter White",
             "Joffrey Baratheon",
@@ -73,11 +73,9 @@ namespace DungeonExplorer
             Health = health;
             MaxHealth = health;
             AverageAttackDamage = averageAttack;
-            m_random = new Random();
         }
         public Monster(int health, int averageAttack)
         {
-            m_random = new Random();
             Name = GetMonsterName();
             Breed = GetMonsterBreed();
             Health = health;
@@ -88,13 +86,11 @@ namespace DungeonExplorer
         private string GetMonsterName()
         {
             int index = m_random.Next(0, m_monsterNames.Length);
-            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
             return m_monsterNames[index];
         }
         private string GetMonsterBreed()
         {
             int index = m_random.Next(0, m_monsterBreeds.Length);
-            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
             return m_monsterBreeds[index];
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
