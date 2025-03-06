@@ -20,6 +20,15 @@ namespace DungeonExplorer
             //The player's default starting weapon are their fists
             currentEquippedWeapon = new Weapon("Fists", 30);
         }
+        public Player(string name, int health, int maxInventorySpace)
+        {
+            Name = name;
+            MaxHealth = health;
+            Health = health;
+            this.maxInventorySpace = maxInventorySpace;
+            //The player's default starting weapon are their fists
+            currentEquippedWeapon = new Weapon("Fists", 30);
+        }
         public void PickUpWeapon(Weapon weapon)
         {
             //Check if the inventory is full (we'll say full=4 weapons)-
