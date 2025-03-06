@@ -32,12 +32,12 @@ namespace DungeonExplorer
                 if (decision == 0)
                 {
                     //Player wants to view inventory
-                    m_player.ViewInventory();
+                    m_player.ViewItemsInInventory();
                 }
                 else if (decision == 1)
                 {
                     //player has chosen to change their equipped item
-                    int weaponChosen = m_player.ShowWeaponsInInventory();
+                    int weaponChosen = m_player.SelectWeaponInInventory();
                     if (weaponChosen == -1)
                     {
                         continue;

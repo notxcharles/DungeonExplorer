@@ -25,6 +25,11 @@ namespace DungeonExplorer
             Name = name;
             MaxHealth = health;
             Health = health;
+            // There needs to be a maximum inventory space so that ChangeEquippedWeapon() can work
+            if (maxInventorySpace > 9)
+            {
+                maxInventorySpace = 9;
+            }
             this.maxInventorySpace = maxInventorySpace;
             //The player's default starting weapon are their fists
             currentEquippedWeapon = new Weapon("Fists", 30);
@@ -58,43 +63,7 @@ namespace DungeonExplorer
                 $"{previousEquippedWeapon.Type} has been added to your inventory");
             return;
         }
-        public int ShowWeaponsInInventory()
-        {
-            if (inventory.Count == 0)
-            {
-                Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapon(s).");
-                return -1;
-            }
-            while (true)
-            {
-                Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
-                Console.WriteLine($"Items in your inventory:");
-                for (int i = 0; i < inventory.Count; i++)
-                {
-                    Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
-                }
-                Console.WriteLine($"What weapon would you like to equip?");
-                ConsoleKeyInfo key = Console.ReadKey();
-                try
-                {
-                    int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                    if (keyAsInt >= 0 && keyAsInt < inventory.Count)
-                    {
-                        return keyAsInt;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{key} was pressed. You must press a key that " +
-                            $"corresponds to a weapon");
-                    }
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine($"{key} was pressed. You may only press a key that " +
-                        $"corresponds to a weapon");
-                }
-            }
-        }
+
         public void ShowCharacterDetails()
         {
             Console.WriteLine($"\nCharacter Details:");
@@ -147,7 +116,7 @@ namespace DungeonExplorer
             return -1;
         }
 
-        public void ViewInventory()
+        public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
             // if there are items in the inventory, return the number of items
             if (inventory.Count == 0)
@@ -156,15 +125,53 @@ namespace DungeonExplorer
             }
             else
             {
+                Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
                 Console.WriteLine($"Items in your inventory:");
                 for (int i = 0; i < inventory.Count; i++)
                 {
-                    Console.WriteLine($"- {inventory[i].CreateSummary()}");
+                    if (showIndexOfItem)
+                    {
+                        Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"- {inventory[i].CreateSummary()}");
+                    }     
                 }
                 Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently " +
-                    $"holding {inventory.Count} weapons.");
+                    $"holding {inventory.Count} weapons.");                
             }
             return;
+        }
+        public int SelectWeaponInInventory()
+        {
+            ViewItemsInInventory(true);
+            if (inventory.Count == 0)
+            {
+                return -1;
+            }
+            while (true)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                try
+                {
+                    int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
+                    if (keyAsInt >= 0 && keyAsInt < inventory.Count)
+                    {
+                        return keyAsInt;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{key} was pressed. You must press a key that " +
+                            $"corresponds to a weapon");
+                    }
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine($"{key} was pressed. You may only press a key that " +
+                        $"corresponds to a weapon");
+                }
+            }
         }
         public int GetTotalItemsInInventory()
         {
