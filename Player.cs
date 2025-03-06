@@ -65,41 +65,43 @@ namespace DungeonExplorer
                 Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapon(s).");
                 return -1;
             }
-            else
+            while (true)
             {
-                while (true)
+                Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
+                Console.WriteLine($"Items in your inventory:");
+                for (int i = 0; i < inventory.Count; i++)
                 {
-                    Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
-                    Console.WriteLine($"Items in your inventory:");
-                    for (int i = 0; i < inventory.Count; i++)
+                    Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
+                }
+                Console.WriteLine($"What weapon would you like to equip?");
+                ConsoleKeyInfo key = Console.ReadKey();
+                try
+                {
+                    int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
+                    if (keyAsInt >= 0 && keyAsInt < inventory.Count)
                     {
-                        Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
+                        return keyAsInt;
                     }
-                    Console.WriteLine($"What weapon would you like to equip?");
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    try
+                    else
                     {
-                        int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                        if (keyAsInt >= 0 && keyAsInt < inventory.Count)
-                        {
-                            return keyAsInt;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{key} was pressed. You must press a key that " +
-                                $"corresponds to a weapon");
-                        }
-                    }
-                    catch (FormatException e)
-                    {
-                        Console.WriteLine($"{key} was pressed. You may only press a key that " +
+                        Console.WriteLine($"{key} was pressed. You must press a key that " +
                             $"corresponds to a weapon");
                     }
                 }
+                catch (FormatException e)
+                {
+                    Console.WriteLine($"{key} was pressed. You may only press a key that " +
+                        $"corresponds to a weapon");
+                }
             }
-            return -1;
         }
-        public void ShowDecisions()
+        public void ShowCharacterDetails()
+        {
+            Console.WriteLine($"\nCharacter Details:");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
+            Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
+        }
+        public void ShowTurnDecisions()
         {
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("(0) View Inventory");
@@ -110,16 +112,13 @@ namespace DungeonExplorer
             Console.WriteLine("(5) Open the door");
             Console.WriteLine("(9) Exit game");
         }
-        public int GetDecision()
+        public int GetTurnDecisions()
         {
-
-            Console.WriteLine($"\nCharacter Details:");
-            Console.WriteLine($"Health: {Health}/{MaxHealth}");
-            Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
+            ShowCharacterDetails();
             bool recievedValidInput = false;
             while (recievedValidInput == false)
             {
-                ShowDecisions();
+                ShowTurnDecisions();
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.WriteLine("");
                 try

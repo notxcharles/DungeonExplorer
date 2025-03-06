@@ -28,7 +28,7 @@ namespace DungeonExplorer
             while (roomNumber < m_numberOfRooms)
             {
                 m_currentRoom.WelcomePlayer(roomNumber);
-                int decision = m_player.GetDecision();
+                int decision = m_player.GetTurnDecisions();
                 if (decision == 0)
                 {
                     //Player wants to view inventory
@@ -38,6 +38,10 @@ namespace DungeonExplorer
                 {
                     //player has chosen to change their equipped item
                     int weaponChosen = m_player.ShowWeaponsInInventory();
+                    if (weaponChosen == -1)
+                    {
+                        continue;
+                    }
                     m_player.EquipDifferentWeapon(weaponChosen);
                 }
                 else if (decision == 2)
