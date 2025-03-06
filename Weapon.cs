@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
@@ -44,28 +39,27 @@ namespace DungeonExplorer
         public Weapon(int weaponAverageDamage)
         {
             m_random = new Random();
-            Type = GetWeaponType();
+            Type = CreateWeaponType();
             AverageAttackDamage = weaponAverageDamage;
         }
-        private string GetWeaponType()
+        private string CreateWeaponType()
         {
             int index = m_random.Next(0, weaponTypes.Length);
-            Thread.Sleep(25); //Add a little Thread.Sleep() so that Random can be more pseudorandom
             return weaponTypes[index];
         }
-        private double CreateRandomGaussianNumber(int mean, int stdDev)
+        private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
-            double u1 = 1.0 - m_random.NextDouble(); //uniform(0,1) random doubles
+            double u1 = 1.0 - m_random.NextDouble(); 
             double u2 = 1.0 - m_random.NextDouble();
-            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
-            double randNormal = mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
+            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+            double randNormal = mean + standardDeviation * randStdNormal;
             return randNormal;
         }
         public int GetAttackDamage()
         {
-            //m_averageAttack represents the mean of a normal distribution
-            //attackDamage will be a random datapoint in the distribution
+            //AverageAttack represents the mean of a normal distribution
             double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
+            //attackDamage will be a random integer datapoint in the distribution
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
         }
