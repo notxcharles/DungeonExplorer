@@ -60,6 +60,7 @@ namespace DungeonExplorer
             {
                 while (true)
                 {
+                    Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
                     Console.WriteLine($"Items in your inventory:");
                     for (int i = 0; i < inventory.Count; i++)
                     {
@@ -89,23 +90,27 @@ namespace DungeonExplorer
             }
             return -1;
         }
+        public void ShowDecisions()
+        {
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("(0) View Inventory");
+            Console.WriteLine("(1) Change Equipped Item");
+            Console.WriteLine("(2) Pick up weapon");
+            Console.WriteLine($"(3) Attack Monster with {currentEquippedWeapon.Type}");
+            Console.WriteLine("(4) Retreat and heal");
+            Console.WriteLine("(5) Open the door");
+            Console.WriteLine("(9) Exit game");
+        }
         public int GetDecision()
         {
 
             Console.WriteLine($"\nCharacter Details:");
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
-            
+            Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
             bool recievedValidInput = false;
             while (recievedValidInput == false)
             {
-                Console.WriteLine("What do you want to do?");
-                Console.WriteLine("(0) View Inventory");
-                Console.WriteLine("(1) Change Equipped Item");
-                Console.WriteLine("(2) Pick up weapon");
-                Console.WriteLine($"(3) Attack Monster with {currentEquippedWeapon.Type}");
-                Console.WriteLine("(4) Retreat and heal");
-                Console.WriteLine("(5) Open the door");
-                Console.WriteLine("(9) Exit game");
+                ShowDecisions();
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.WriteLine("");
                 try
