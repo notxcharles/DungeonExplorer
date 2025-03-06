@@ -93,7 +93,7 @@ namespace DungeonExplorer
         {
 
             Console.WriteLine($"\nCharacter Details:");
-            Console.WriteLine($"Health: {Health}/100");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
             
             bool recievedValidInput = false;
             while (recievedValidInput == false)
