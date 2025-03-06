@@ -170,7 +170,7 @@ namespace DungeonExplorer
         {
             return inventory.Count;
         }
-        public int GetAttackDamage()
+        public int GetCurrentAttackDamage()
         {
             return currentEquippedWeapon.GetAttackDamage();
         }

@@ -135,7 +135,7 @@ namespace DungeonExplorer
         }
         public void PlayerFightsMonster(Player player, Monster monster, Room room)
         {
-            int playerAttackDamage = player.GetAttackDamage();
+            int playerAttackDamage = player.GetCurrentAttackDamage();
             monster.Health -= playerAttackDamage;
             int monsterAttackDamage = monster.GetAttackDamage();
             player.Health -= monsterAttackDamage;
