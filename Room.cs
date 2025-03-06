@@ -238,7 +238,6 @@ namespace DungeonExplorer
             {
                 Console.WriteLine($"There is a weapon inside this room- A {WeaponInTheRoom.CreateSummary()}");
             }
-            //DisplayRoom();
             return;
         }
         public void WeaponPickedUp()
