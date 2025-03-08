@@ -8,9 +8,9 @@ namespace DungeonExplorer
         public string Name { get; private set; }
         public int MaxHealth { get; private set; }
         public int Health { get; set; }
-        private List<Weapon> inventory = new List<Weapon>();
+        private List<Weapon> m_inventory = new List<Weapon>();
         public int maxInventorySpace { get; private set; }
-        private Weapon currentEquippedWeapon;
+        private Weapon m_currentEquippedWeapon;
         public Player(string name, int health) 
         {
             Name = name;
@@ -18,7 +18,7 @@ namespace DungeonExplorer
             Health = health;
             maxInventorySpace = 4;
             //The player's default starting weapon are their fists
-            currentEquippedWeapon = new Weapon("Fists", 30);
+            m_currentEquippedWeapon = new Weapon("Fists", 30);
         }
         public Player(string name, int health, int maxInventorySpace)
         {
@@ -32,12 +32,12 @@ namespace DungeonExplorer
             }
             this.maxInventorySpace = maxInventorySpace;
             //The player's default starting weapon are their fists
-            currentEquippedWeapon = new Weapon("Fists", 30);
+            m_currentEquippedWeapon = new Weapon("Fists", 30);
         }
         public void PickUpWeapon(Weapon weapon)
         {
             //Check if the inventory is full (we'll say full=4 weapons)-
-            if (inventory.Count == maxInventorySpace)
+            if (m_inventory.Count == maxInventorySpace)
             {
                 Console.WriteLine("Your inventory is full! You cannot pick up any more weapons");
             }
@@ -47,19 +47,19 @@ namespace DungeonExplorer
             }
             else
             {
-                inventory.Add(weapon);
+                m_inventory.Add(weapon);
                 Console.WriteLine($"{weapon.Type} has been added to your inventory");
             }
             return;
         }
         public void EquipDifferentWeapon(int weaponIndex)
         {
-            Weapon weaponToEquip = inventory[weaponIndex];
-            inventory.Remove(weaponToEquip);
-            inventory.Add(currentEquippedWeapon);
-            Weapon previousEquippedWeapon = currentEquippedWeapon;
-            currentEquippedWeapon = weaponToEquip;
-            Console.WriteLine($"{currentEquippedWeapon.Type} has been equipped. " +
+            Weapon weaponToEquip = m_inventory[weaponIndex];
+            m_inventory.Remove(weaponToEquip);
+            m_inventory.Add(m_currentEquippedWeapon);
+            Weapon previousEquippedWeapon = m_currentEquippedWeapon;
+            m_currentEquippedWeapon = weaponToEquip;
+            Console.WriteLine($"{m_currentEquippedWeapon.Type} has been equipped. " +
                 $"{previousEquippedWeapon.Type} has been added to your inventory");
             return;
         }
@@ -68,7 +68,7 @@ namespace DungeonExplorer
         {
             Console.WriteLine($"\nCharacter Details:");
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
-            Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
+            Console.WriteLine($"Equipped Weapon: {m_currentEquippedWeapon.CreateSummary()}\n");
             return;
         }
         public void ShowTurnDecisions(bool monsterAlive)
@@ -81,7 +81,7 @@ namespace DungeonExplorer
             Console.WriteLine("(4) Open the door");
             if (monsterAlive)
             {
-                Console.WriteLine($"(5) Attack Monster with {currentEquippedWeapon.Type}");
+                Console.WriteLine($"(5) Attack Monster with {m_currentEquippedWeapon.Type}");
             }
             Console.WriteLine("(9) Exit game");
             return;
@@ -131,34 +131,34 @@ namespace DungeonExplorer
         public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
             // if there are items in the inventory, return the number of items
-            if (inventory.Count == 0)
+            if (m_inventory.Count == 0)
             {
                 Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapons.");
             }
             else
             {
-                Console.WriteLine($"Current equipped weapon: {currentEquippedWeapon.CreateSummary()}");
+                Console.WriteLine($"Current equipped weapon: {m_currentEquippedWeapon.CreateSummary()}");
                 Console.WriteLine($"Items in your inventory:");
-                for (int i = 0; i < inventory.Count; i++)
+                for (int i = 0; i < m_inventory.Count; i++)
                 {
                     if (showIndexOfItem)
                     {
-                        Console.WriteLine($"({i}) {inventory[i].CreateSummary()}");
+                        Console.WriteLine($"({i}) {m_inventory[i].CreateSummary()}");
                     }
                     else
                     {
-                        Console.WriteLine($"- {inventory[i].CreateSummary()}");
+                        Console.WriteLine($"- {m_inventory[i].CreateSummary()}");
                     }     
                 }
                 Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently " +
-                    $"holding {inventory.Count} weapons.");                
+                    $"holding {m_inventory.Count} weapons.");                
             }
             return;
         }
         public int SelectWeaponInInventory()
         {
             ViewItemsInInventory(true);
-            if (inventory.Count == 0)
+            if (m_inventory.Count == 0)
             {
                 return -1;
             }
@@ -168,7 +168,7 @@ namespace DungeonExplorer
                 try
                 {
                     int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                    if (keyAsInt >= 0 && keyAsInt < inventory.Count)
+                    if (keyAsInt >= 0 && keyAsInt < m_inventory.Count)
                     {
                         return keyAsInt;
                     }
@@ -187,11 +187,11 @@ namespace DungeonExplorer
         }
         public int GetTotalItemsInInventory()
         {
-            return inventory.Count;
+            return m_inventory.Count;
         }
         public int GetCurrentAttackDamage()
         {
-            return currentEquippedWeapon.GetAttackDamage();
+            return m_currentEquippedWeapon.GetAttackDamage();
         }
     }
 }

@@ -11,12 +11,12 @@ namespace DungeonExplorer
         public Monster Monster { get; set; }
         public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
-        private int[] roomDimensions;
-        private int doorPosition;
-        private int[] monsterCoords;
-        private int[] treasureCoords;
-        private char[,] roomDisplay;
-        private bool isTreasure = true;
+        private int[] m_roomDimensions;
+        private int m_doorPosition;
+        private int[] m_monsterCoords;
+        private int[] m_treasureCoords;
+        private char[,] _roomDisplay;
+        private bool m_isTreasure = true;
         private string[] m_roomNames = new string[] {
             "The Forgotten Hall",
             "Chamber of Chains",
@@ -70,11 +70,11 @@ namespace DungeonExplorer
             this.RoomDescription = description;
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
-            this.roomDimensions = roomDimensions;
-            this.doorPosition = doorPosition;
-            monsterCoords = monsterCoordinates;
+            this.m_roomDimensions = roomDimensions;
+            this.m_doorPosition = doorPosition;
+            m_monsterCoords = monsterCoordinates;
             Monster = monster;
-            roomDisplay = new char[roomX, roomY];
+            _roomDisplay = new char[roomX, roomY];
             DoorIsLocked = true;
             RenderRoom();
         }
@@ -85,12 +85,12 @@ namespace DungeonExplorer
             RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
-            this.roomDimensions = roomDimensions;
-            this.doorPosition = doorPosition;
-            monsterCoords = monsterCoordinates;
+            this.m_roomDimensions = roomDimensions;
+            this.m_doorPosition = doorPosition;
+            m_monsterCoords = monsterCoordinates;
             Monster = monster;
             WeaponInTheRoom = weapon;
-            roomDisplay = new char[roomX, roomY];
+            _roomDisplay = new char[roomX, roomY];
             DoorIsLocked = true;
             RenderRoom();
         }
@@ -102,9 +102,9 @@ namespace DungeonExplorer
             description = GetRoomDescription();
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
-            this.roomDimensions = roomDimensions;
-            treasureCoords = treasureCoordinates;
-            roomDisplay = new char[roomX, roomY];
+            this.m_roomDimensions = roomDimensions;
+            m_treasureCoords = treasureCoordinates;
+            _roomDisplay = new char[roomX, roomY];
             RenderRoom();
         }
         public Room(int[] roomDimensions, int[] treasureCoordinates)
@@ -113,9 +113,9 @@ namespace DungeonExplorer
             RoomDescription = GetRoomDescription();
             int roomX = roomDimensions[0];
             int roomY = roomDimensions[1];
-            this.roomDimensions = roomDimensions;
-            treasureCoords = treasureCoordinates;
-            roomDisplay = new char[roomX, roomY];
+            this.m_roomDimensions = roomDimensions;
+            m_treasureCoords = treasureCoordinates;
+            _roomDisplay = new char[roomX, roomY];
             RenderRoom();
         }
         private string GetRoomName()
@@ -136,7 +136,7 @@ namespace DungeonExplorer
 
         public int[] GetDimensions()
         {
-            return roomDimensions;
+            return m_roomDimensions;
         }
         public bool IsMonsterAlive()
         {
@@ -151,17 +151,17 @@ namespace DungeonExplorer
         //Displays the contents of this.roomDisplay to the console
         public void DisplayRoom()
         {
-            int yMax = this.roomDisplay.GetLength(1);
-            int xMax = this.roomDisplay.GetLength(0);
+            int yMax = this._roomDisplay.GetLength(1);
+            int xMax = this._roomDisplay.GetLength(0);
             Console.WriteLine($"This is the room! A height of {xMax - 2} and a height of {yMax - 2}!");
             
             for (int y = yMax-1; y >= 0; y--) 
             {
-                char[] line = new char[this.roomDisplay.GetLength(0)];
+                char[] line = new char[this._roomDisplay.GetLength(0)];
                 
                 for (int x = 0; x < xMax; x++)
                 {
-                    line[x] = this.roomDisplay[x, y];
+                    line[x] = this._roomDisplay[x, y];
                 }
                 Console.WriteLine(line);
             }
@@ -171,8 +171,8 @@ namespace DungeonExplorer
         //Renders the room and fills out the this.roomDisplay 2d array
         public void RenderRoom()
         {
-            int xMax = roomDimensions[0];
-            int yMax = roomDimensions[1];
+            int xMax = m_roomDimensions[0];
+            int yMax = m_roomDimensions[1];
             //Console.WriteLine($"Room of size x={xMax}, y={yMax}, doorpos={doorPosition}:");
             for (int y = 0; y < yMax; y++)
             {
@@ -180,46 +180,46 @@ namespace DungeonExplorer
                 {
                     if ((y == 0 && x == 0) || (y == yMax - 1 && x == xMax - 1))
                     {
-                        this.roomDisplay[x, y] = '\\';
+                        this._roomDisplay[x, y] = '\\';
                     }
                     else if ((y == yMax - 1 && x == 0) || (y == 0 && x == xMax - 1))
                     {
-                        this.roomDisplay[x, y] = '/';
+                        this._roomDisplay[x, y] = '/';
                     }
                     else if (y == 0 || y == yMax - 1)
                     {
-                        this.roomDisplay[x, y] = '-';
+                        this._roomDisplay[x, y] = '-';
                     }
                     else if (x == 0 || x == xMax - 1)
                     {
-                        this.roomDisplay[x, y] = '|';
+                        this._roomDisplay[x, y] = '|';
                     }
                     else
                     {
-                        this.roomDisplay[x, y] = ' ';
+                        this._roomDisplay[x, y] = ' ';
                     }
                 }
                 // Doors, Monsters and Treasures
                 if (y == yMax-1)
                 {
-                    this.roomDisplay[this.doorPosition, y] = 'D';
+                    this._roomDisplay[this.m_doorPosition, y] = 'D';
                 }
-                if (monsterCoords != null)
+                if (m_monsterCoords != null)
                 {
-                    int monsterX = this.monsterCoords[0];
-                    int monsterY = this.monsterCoords[1];
+                    int monsterX = this.m_monsterCoords[0];
+                    int monsterY = this.m_monsterCoords[1];
                     if (y == monsterY)
                     {
-                        this.roomDisplay[monsterX, y] = 'M';
+                        this._roomDisplay[monsterX, y] = 'M';
                     }
                 }
-                if (treasureCoords != null)
+                if (m_treasureCoords != null)
                 {
-                    int treasureX = this.treasureCoords[0];
-                    int treasureY = this.treasureCoords[1];
+                    int treasureX = this.m_treasureCoords[0];
+                    int treasureY = this.m_treasureCoords[1];
                     if (y == treasureY)
                     {
-                        this.roomDisplay[treasureX, y] = 'T';
+                        this._roomDisplay[treasureX, y] = 'T';
                     }
                 }
             }

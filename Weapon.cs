@@ -7,7 +7,7 @@ namespace DungeonExplorer
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
         private static Random m_random = new Random();
-        private string[] weaponTypes = {
+        private string[] m_weaponTypes = {
             "Baseball Bat",
             "Machete",
             "Crowbar",
@@ -44,8 +44,8 @@ namespace DungeonExplorer
         }
         private string CreateWeaponType()
         {
-            int index = m_random.Next(0, weaponTypes.Length);
-            return weaponTypes[index];
+            int index = m_random.Next(0, m_weaponTypes.Length);
+            return m_weaponTypes[index];
         }
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
