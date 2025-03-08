@@ -32,7 +32,6 @@ namespace DungeonExplorer
             "Tommen Baratheon",
             "Annalise Keating",
             "Jack Torrance",
-            "Jack Torrance",
             "Omar Little",
             "Bane",
             "Regina Mills",
