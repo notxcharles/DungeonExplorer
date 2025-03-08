@@ -138,7 +138,11 @@ namespace DungeonExplorer
         {
             return roomDimensions;
         }
+        public bool IsMonsterAlive()
+        {
 
+            return Monster != null && Monster.Health > 0;
+        }
         private Monster GetMonster()
         {
             return Monster;

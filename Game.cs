@@ -28,7 +28,8 @@ namespace DungeonExplorer
             while (roomNumber < m_numberOfRooms)
             {
                 m_currentRoom.WelcomePlayer(roomNumber);
-                int decision = m_player.GetTurnDecisions();
+                bool isMonsterAlive = m_currentRoom.IsMonsterAlive();
+                int decision = m_player.GetTurnDecisions(isMonsterAlive);
                 if (decision == 0)
                 {
                     //Player wants to view inventory
@@ -59,17 +60,13 @@ namespace DungeonExplorer
                 }
                 else if (decision == 3)
                 {
-                    //Player wants to fight
-                    PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
-                }
-                else if (decision == 4)
-                {
+                    
                     //Retreat and heal-
                     int healthRecovered = m_player.MaxHealth - m_player.Health;
                     m_player.Health = m_player.MaxHealth;
                     Console.WriteLine($"\nYou have stepped back and regained {healthRecovered} health");
                 }
-                else if (decision == 5)
+                else if (decision == 4)
                 {
                     //Player wants to goes to next room
                     if (NextRoom(m_currentRoom))
@@ -77,6 +74,19 @@ namespace DungeonExplorer
                         roomNumber += 1;
                         m_currentRoom = CreateMonsterRoom();
                     }
+                }
+                else if (decision == 5)
+                {
+                    if (isMonsterAlive)
+                    {
+                        PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input! You cannot fight a monster as there is no monster in the room!");
+                    }
+                    //Player wants to fight
+                    
                 }
                 Thread.Sleep(5000);
                 ClearConsole();

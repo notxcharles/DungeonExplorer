@@ -70,24 +70,27 @@ namespace DungeonExplorer
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
             Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
         }
-        public void ShowTurnDecisions()
+        public void ShowTurnDecisions(bool monsterAlive)
         {
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("(0) View Inventory");
             Console.WriteLine("(1) Change Equipped Item");
             Console.WriteLine("(2) Pick up weapon");
-            Console.WriteLine($"(3) Attack Monster with {currentEquippedWeapon.Type}");
-            Console.WriteLine("(4) Retreat and heal");
-            Console.WriteLine("(5) Open the door");
+            Console.WriteLine("(3) Retreat and heal");
+            Console.WriteLine("(4) Open the door");
+            if (monsterAlive)
+            {
+                Console.WriteLine($"(5) Attack Monster with {currentEquippedWeapon.Type}");
+            }
             Console.WriteLine("(9) Exit game");
         }
-        public int GetTurnDecisions()
+        public int GetTurnDecisions(bool monsterAlive)
         {
             ShowCharacterDetails();
             bool recievedValidInput = false;
             while (recievedValidInput == false)
             {
-                ShowTurnDecisions();
+                ShowTurnDecisions(monsterAlive);
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.WriteLine("");
                 try
@@ -105,7 +108,14 @@ namespace DungeonExplorer
                     }
                     else
                     {
-                        Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
+                        if (monsterAlive)
+                        {
+                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4 or 9");
+                        }
                     }
                 }
                 catch (FormatException e)
