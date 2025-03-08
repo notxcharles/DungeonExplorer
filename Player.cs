@@ -69,6 +69,7 @@ namespace DungeonExplorer
             Console.WriteLine($"\nCharacter Details:");
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
             Console.WriteLine($"Equipped Weapon: {currentEquippedWeapon.CreateSummary()}\n");
+            return;
         }
         public void ShowTurnDecisions(bool monsterAlive)
         {
@@ -83,6 +84,7 @@ namespace DungeonExplorer
                 Console.WriteLine($"(5) Attack Monster with {currentEquippedWeapon.Type}");
             }
             Console.WriteLine("(9) Exit game");
+            return;
         }
         public int GetTurnDecisions(bool monsterAlive)
         {
