@@ -88,7 +88,8 @@ namespace DungeonExplorer
                     //Player wants to fight
                     
                 }
-                Thread.Sleep(5000);
+                PromptNextTurn();
+                //Thread.Sleep(5000);
                 ClearConsole();
             }
             FinishGame();
@@ -132,6 +133,11 @@ namespace DungeonExplorer
                 return new Room(roomName, roomDescription, roomDimensions, doorPosition, currentMonster, monsterCoords);
             }
             return new Room(roomDimensions, doorPosition, currentMonster, monsterCoords, weapon);
+        }
+        public void PromptNextTurn()
+        {
+            Console.WriteLine("Press any key to continue");
+            ConsoleKeyInfo key = Console.ReadKey();
         }
         public bool NextRoom(Room room)
         {
