@@ -137,18 +137,23 @@ namespace DungeonExplorer
         {
             int playerAttackDamage = player.GetCurrentAttackDamage();
             monster.Health -= playerAttackDamage;
-            int monsterAttackDamage = monster.GetAttackDamage();
-            player.Health -= monsterAttackDamage;
-            if (player.Health <= 0)
-            {
-                Console.WriteLine($"The monster has killed you! You took {monsterAttackDamage} damage. Game Over");
-                Environment.Exit(1);
+            int monsterAttackDamage = -1;
+            if (monster.Health > 0)
+            { 
+                monsterAttackDamage = monster.GetAttackDamage();
+                player.Health -= monsterAttackDamage;
             }
-            else if (monster.Health <= 0)
+            
+            if (monster.Health <= 0)
             {
                 Console.WriteLine($"You have killed the monster! You did {playerAttackDamage} damage. Congratulations!");
                 room.Monster = null;
                 room.DoorIsLocked = false;
+            }
+            else if (player.Health <= 0)
+            {
+                Console.WriteLine($"The monster has killed you! You took {monsterAttackDamage} damage. Game Over");
+                Environment.Exit(1);
             }
             else
             {
