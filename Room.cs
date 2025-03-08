@@ -8,15 +8,10 @@ namespace DungeonExplorer
     {
         public string RoomName { get; private set; }
         public string RoomDescription { get; private set; }
-        public Monster Monster { get; set; }
+        public Monster MonsterInTheRoom { get; set; }
         public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
         private int[] m_roomDimensions;
-        private int m_doorPosition;
-        private int[] m_monsterCoords;
-        private int[] m_treasureCoords;
-        private char[,] _roomDisplay;
-        private bool m_isTreasure = true;
         private string[] m_roomNames = new string[] {
             "The Forgotten Hall",
             "Chamber of Chains",
@@ -63,60 +58,32 @@ namespace DungeonExplorer
         };
         private static Random m_random = new Random();
         // A monster and an exit door in this room
-        public Room(string roomName, string description, int[] roomDimensions, int doorPosition, 
-            Monster monster, int[] monsterCoordinates)
+        public Room(string roomName, string description, Monster monster)
         {
             this.RoomName = roomName;
             this.RoomDescription = description;
-            int roomX = roomDimensions[0];
-            int roomY = roomDimensions[1];
-            this.m_roomDimensions = roomDimensions;
-            this.m_doorPosition = doorPosition;
-            m_monsterCoords = monsterCoordinates;
-            Monster = monster;
-            _roomDisplay = new char[roomX, roomY];
+            this.MonsterInTheRoom = monster;
             DoorIsLocked = true;
-            RenderRoom();
         }
-        public Room(int[] roomDimensions, int doorPosition, Monster monster, int[] monsterCoordinates, 
-            Weapon weapon)
+        public Room(Monster monster, Weapon weapon)
         {
             RoomName = GetRoomName();
             RoomDescription = GetRoomDescription();
-            int roomX = roomDimensions[0];
-            int roomY = roomDimensions[1];
-            this.m_roomDimensions = roomDimensions;
-            this.m_doorPosition = doorPosition;
-            m_monsterCoords = monsterCoordinates;
-            Monster = monster;
-            WeaponInTheRoom = weapon;
-            _roomDisplay = new char[roomX, roomY];
+            this.MonsterInTheRoom = monster;
+            this.WeaponInTheRoom = weapon;
             DoorIsLocked = true;
-            RenderRoom();
         }
 
         // The final room, there is treasure in this room but no door or monster
-        public Room(string roomName, string description, int[] roomDimensions, int[] treasureCoordinates)
+        public Room(string roomName, string description)
         {
             roomName = GetRoomName();
             description = GetRoomDescription();
-            int roomX = roomDimensions[0];
-            int roomY = roomDimensions[1];
-            this.m_roomDimensions = roomDimensions;
-            m_treasureCoords = treasureCoordinates;
-            _roomDisplay = new char[roomX, roomY];
-            RenderRoom();
         }
-        public Room(int[] roomDimensions, int[] treasureCoordinates)
+        public Room()
         {
             RoomName = GetRoomName();
             RoomDescription = GetRoomDescription();
-            int roomX = roomDimensions[0];
-            int roomY = roomDimensions[1];
-            this.m_roomDimensions = roomDimensions;
-            m_treasureCoords = treasureCoordinates;
-            _roomDisplay = new char[roomX, roomY];
-            RenderRoom();
         }
         private string GetRoomName()
         {
@@ -141,98 +108,20 @@ namespace DungeonExplorer
         public bool IsMonsterAlive()
         {
 
-            return Monster != null && Monster.Health > 0;
+            return MonsterInTheRoom != null && MonsterInTheRoom.Health > 0;
         }
         private Monster GetMonster()
         {
-            return Monster;
-        }
-
-        //Displays the contents of this.roomDisplay to the console
-        public void DisplayRoom()
-        {
-            int yMax = this._roomDisplay.GetLength(1);
-            int xMax = this._roomDisplay.GetLength(0);
-            Console.WriteLine($"This is the room! A height of {xMax - 2} and a height of {yMax - 2}!");
-            
-            for (int y = yMax-1; y >= 0; y--) 
-            {
-                char[] line = new char[this._roomDisplay.GetLength(0)];
-                
-                for (int x = 0; x < xMax; x++)
-                {
-                    line[x] = this._roomDisplay[x, y];
-                }
-                Console.WriteLine(line);
-            }
-            return;
-        }
-
-        //Renders the room and fills out the this.roomDisplay 2d array
-        public void RenderRoom()
-        {
-            int xMax = m_roomDimensions[0];
-            int yMax = m_roomDimensions[1];
-            //Console.WriteLine($"Room of size x={xMax}, y={yMax}, doorpos={doorPosition}:");
-            for (int y = 0; y < yMax; y++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    if ((y == 0 && x == 0) || (y == yMax - 1 && x == xMax - 1))
-                    {
-                        this._roomDisplay[x, y] = '\\';
-                    }
-                    else if ((y == yMax - 1 && x == 0) || (y == 0 && x == xMax - 1))
-                    {
-                        this._roomDisplay[x, y] = '/';
-                    }
-                    else if (y == 0 || y == yMax - 1)
-                    {
-                        this._roomDisplay[x, y] = '-';
-                    }
-                    else if (x == 0 || x == xMax - 1)
-                    {
-                        this._roomDisplay[x, y] = '|';
-                    }
-                    else
-                    {
-                        this._roomDisplay[x, y] = ' ';
-                    }
-                }
-                // Doors, Monsters and Treasures
-                if (y == yMax-1)
-                {
-                    this._roomDisplay[this.m_doorPosition, y] = 'D';
-                }
-                if (m_monsterCoords != null)
-                {
-                    int monsterX = this.m_monsterCoords[0];
-                    int monsterY = this.m_monsterCoords[1];
-                    if (y == monsterY)
-                    {
-                        this._roomDisplay[monsterX, y] = 'M';
-                    }
-                }
-                if (m_treasureCoords != null)
-                {
-                    int treasureX = this.m_treasureCoords[0];
-                    int treasureY = this.m_treasureCoords[1];
-                    if (y == treasureY)
-                    {
-                        this._roomDisplay[treasureX, y] = 'T';
-                    }
-                }
-            }
-            return;
+            return MonsterInTheRoom;
         }
         public void WelcomePlayer(int roomNumber)
         {
             Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber})");
             Console.WriteLine($"{this.RoomDescription}\n");
-            if (Monster != null)
+            if (MonsterInTheRoom != null)
             {
-                Console.WriteLine($"A {Monster.Breed} called {Monster.Name} is present! It has {Monster.Health} " +
-                    $"health and does an average of {Monster.AverageAttackDamage} attack damage!");
+                Console.WriteLine($"A {MonsterInTheRoom.Breed} called {MonsterInTheRoom.Name} is present! It has {MonsterInTheRoom.Health} " +
+                    $"health and does an average of {MonsterInTheRoom.AverageAttackDamage} attack damage!");
             }
             else
             {

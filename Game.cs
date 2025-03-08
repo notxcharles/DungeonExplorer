@@ -79,7 +79,7 @@ namespace DungeonExplorer
                 {
                     if (isMonsterAlive)
                     {
-                        PlayerFightsMonster(m_player, m_currentRoom.Monster, m_currentRoom);
+                        PlayerFightsMonster(m_player, m_currentRoom.MonsterInTheRoom, m_currentRoom);
                     }
                     else
                     {
@@ -116,23 +116,13 @@ namespace DungeonExplorer
         public Room CreateMonsterRoom(string roomName = "", string roomDescription = "", int monsterHealth = 100, int monsterDamage = 20)
         {
             Monster currentMonster = new Monster(monsterHealth, monsterDamage);
-            int roomX = m_random.Next(5, 12) + 2; //Adding 2 so that the walls inside are accounted for
-            int roomY = m_random.Next(4, 10) + 2;
-            //This should be viewed as room area, we add +2 to each axis to give room for walls
-            int[] roomDimensions = new int[2] { roomX, roomY }; 
-            // The door is always placed at the top of the room. Door Position controls the horizontal position
-            int doorPosition = m_random.Next(5, roomX) - 2; 
-            int monsterX = m_random.Next(1, roomX - 2); //monsterX can take the value that the room's x could be
-            int monsterY = m_random.Next(3, roomY - 2); //monsterY must be at least 2 away from the bottom most wall
-            //monsterCoord and treasureCoord assume that the bottom left tile is at (0,0)
-            int[] monsterCoords = new int[2] { monsterX, monsterY };
             int randomDamage = m_random.Next(35, 70);
             Weapon weapon = new Weapon(randomDamage);
             if (roomName != "" && roomDescription != "")
             {
-                return new Room(roomName, roomDescription, roomDimensions, doorPosition, currentMonster, monsterCoords);
+                return new Room(roomName, roomDescription, currentMonster);
             }
-            return new Room(roomDimensions, doorPosition, currentMonster, monsterCoords, weapon);
+            return new Room(currentMonster, weapon);
         }
         public void PromptNextTurn()
         {
@@ -163,7 +153,7 @@ namespace DungeonExplorer
             if (monster.Health <= 0)
             {
                 Console.WriteLine($"You have killed the monster! You did {playerAttackDamage} damage. Congratulations!");
-                room.Monster = null;
+                room.MonsterInTheRoom = null;
                 room.DoorIsLocked = false;
             }
             else if (player.Health <= 0)
