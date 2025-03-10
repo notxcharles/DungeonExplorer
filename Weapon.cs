@@ -30,7 +30,7 @@ namespace DungeonExplorer
             "Fireworks",
             "Tennis Ball Machine"
         };
-        private const int _stdDevPercentage = 5;
+        private const int _StdDevPercentage = 5;
         public Weapon(string type, int weaponAverageDamage)
         {
             Type = type;
@@ -58,7 +58,7 @@ namespace DungeonExplorer
         public int GetAttackDamage()
         {
             //AverageAttack represents the mean of a normal distribution
-            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _stdDevPercentage);
+            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _StdDevPercentage);
             //attackDamage will be a random integer datapoint in the distribution
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
