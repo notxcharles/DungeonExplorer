@@ -11,8 +11,8 @@ namespace DungeonExplorer
         public Monster MonsterInTheRoom { get; set; }
         public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
-        private int[] m_roomDimensions;
-        private string[] m_roomNames = new string[] {
+        private int[] _roomDimensions;
+        private string[] _roomNames = new string[] {
             "The Forgotten Hall",
             "Chamber of Chains",
             "The Damp Passage",
@@ -34,7 +34,7 @@ namespace DungeonExplorer
             "Bone Pit",
             "The Still Lake"
         };
-        private string[] m_roomDescriptions = new string[] {
+        private string[] _roomDescriptions = new string[] {
             "A vast hall with towering stone pillars, their surfaces worn smooth by time. The air is thick with the scent of damp stone and something faintly metallic.",
             "A circular chamber, its walls lined with rusted chains and shattered weapons. Deep gouges in the floor hint at past struggles.",
             "A long, narrow corridor with an uneven floor, slick with moisture. Faint echoes of dripping water make it impossible to tell how deep the darkness ahead goes.",
@@ -56,7 +56,7 @@ namespace DungeonExplorer
             "A pit of bones, some yellowed with age, others still fresh. The walls are scratched, as if something has tried—and failed—to escape.",
             "A vast underground lake, the water impossibly still. Jagged rocks rise from the surface like teeth, and something beneath the water disturbs the reflection."
         };
-        private static Random m_random = new Random();
+        private static Random _random = new Random();
         // A monster and an exit door in this room
         public Room(string roomName, string description, Monster monster)
         {
@@ -87,13 +87,13 @@ namespace DungeonExplorer
         }
         private string GetRoomName()
         {
-            int index = m_random.Next(0, m_roomNames.Length);
-            return m_roomNames[index];
+            int index = _random.Next(0, _roomNames.Length);
+            return _roomNames[index];
         }
         private string GetRoomDescription()
         {
-            int index = m_random.Next(0, m_roomDescriptions.Length);
-            return m_roomDescriptions[index];
+            int index = _random.Next(0, _roomDescriptions.Length);
+            return _roomDescriptions[index];
         }
 
         public string GetDescription()
@@ -103,7 +103,7 @@ namespace DungeonExplorer
 
         public int[] GetDimensions()
         {
-            return m_roomDimensions;
+            return _roomDimensions;
         }
         public bool IsMonsterAlive()
         {

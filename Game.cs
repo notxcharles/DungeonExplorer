@@ -6,80 +6,80 @@ namespace DungeonExplorer
 {
     internal class Game
     {
-        private string m_gameName;
-        private Player m_player;
-        private Room m_currentRoom;
-        private int m_numberOfRooms;
-        private static Random m_random = new Random();
+        private string _gameName;
+        private Player _player;
+        private Room _currentRoom;
+        private int _numberOfRooms;
+        private static Random _random = new Random();
         
 
         public Game(string gameName, int amountOfRooms, Player player)
         {
             // Initialize the game with one room and one player
-            m_gameName = gameName;
-            m_numberOfRooms = amountOfRooms;
-            m_player = player;
+            _gameName = gameName;
+            _numberOfRooms = amountOfRooms;
+            _player = player;
         }
         public void Start()
         {
             int roomNumber = 0;
             GameStartDisplay();
-            m_currentRoom = CreateMonsterRoom();
-            while (roomNumber < m_numberOfRooms)
+            _currentRoom = CreateMonsterRoom();
+            while (roomNumber < _numberOfRooms)
             {
-                m_currentRoom.WelcomePlayer(roomNumber);
-                bool isMonsterAlive = m_currentRoom.IsMonsterAlive();
-                int decision = m_player.GetTurnDecisions(isMonsterAlive);
+                _currentRoom.WelcomePlayer(roomNumber);
+                bool isMonsterAlive = _currentRoom.IsMonsterAlive();
+                int decision = _player.GetTurnDecisions(isMonsterAlive);
                 if (decision == 0)
                 {
                     //Player wants to view inventory
-                    m_player.ViewItemsInInventory();
+                    _player.ViewItemsInInventory();
                 }
                 else if (decision == 1)
                 {
                     //player has chosen to change their equipped item
-                    int weaponChosen = m_player.SelectWeaponInInventory();
+                    int weaponChosen = _player.SelectWeaponInInventory();
                     if (weaponChosen == -1)
                     {
                         continue;
                     }
-                    m_player.EquipDifferentWeapon(weaponChosen);
+                    _player.EquipDifferentWeapon(weaponChosen);
                 }
                 else if (decision == 2)
                 {
                     //player has chosen to pickup a weapon
-                    if (m_player.GetTotalItemsInInventory() == m_player.maxInventorySpace)
+                    if (_player.GetTotalItemsInInventory() == _player.maxInventorySpace)
                     {
                         Console.WriteLine("Your inventory is full, you may not collect any more weapons");
                     }
                     else
                     {
-                        m_player.PickUpWeapon(m_currentRoom.WeaponInTheRoom);
-                        m_currentRoom.WeaponPickedUp();
+                        _player.PickUpWeapon(_currentRoom.WeaponInTheRoom);
+                        _currentRoom.WeaponPickedUp();
                     }
                 }
                 else if (decision == 3)
                 {
                     
                     //Retreat and heal-
-                    int healthRecovered = m_player.MaxHealth - m_player.Health;
-                    m_player.Health = m_player.MaxHealth;
+                    int healthRecovered = _player.MaxHealth - _player.Health;
+                    _player.Health = _player.MaxHealth;
                     Console.WriteLine($"\nYou have stepped back and regained {healthRecovered} health");
                 }
                 else if (decision == 4)
                 {
                     //Player wants to goes to next room
-                    if (NextRoom(m_currentRoom))
+                    if (NextRoom(_currentRoom))
                     {
                         roomNumber += 1;
-                        m_currentRoom = CreateMonsterRoom();
+                        _currentRoom = CreateMonsterRoom();
                     }
                 }
                 else if (decision == 5)
                 {
                     if (isMonsterAlive)
                     {
-                        PlayerFightsMonster(m_player, m_currentRoom.MonsterInTheRoom, m_currentRoom);
+                        PlayerFightsMonster(_player, _currentRoom.MonsterInTheRoom, _currentRoom);
                     }
                     else
                     {
@@ -105,7 +105,7 @@ namespace DungeonExplorer
         public void GameStartDisplay()
         {
             ClearConsole();
-            Console.WriteLine($"Welcome to {m_gameName}");
+            Console.WriteLine($"Welcome to {_gameName}");
             Console.WriteLine($"You must battle your way through each room. In each room you will have to defeat a " +
                 $"monster who will have the the key to unlock the door!");
             Console.WriteLine("Press any key to start the game. . .");
@@ -116,7 +116,7 @@ namespace DungeonExplorer
         public Room CreateMonsterRoom(string roomName = "", string roomDescription = "", int monsterHealth = 100, int monsterDamage = 20)
         {
             Monster currentMonster = new Monster(monsterHealth, monsterDamage);
-            int randomDamage = m_random.Next(35, 70);
+            int randomDamage = _random.Next(35, 70);
             Weapon weapon = new Weapon(randomDamage);
             if (roomName != "" && roomDescription != "")
             {

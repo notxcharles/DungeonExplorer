@@ -14,8 +14,8 @@ namespace DungeonExplorer
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int AverageAttackDamage { get; private set; }
-        private static Random m_random = new Random();
-        private string[] m_monsterNames = new string[] {
+        private static Random _random = new Random();
+        private string[] _monsterNames = new string[] {
             "Walter White",
             "Joffrey Baratheon",
             "Cersei Lannister",
@@ -41,7 +41,7 @@ namespace DungeonExplorer
             "Count Dooku",
             "Jabba the Hutt",
         };
-        private string[] m_monsterBreeds = new string[] {
+        private string[] _monsterBreeds = new string[] {
             "Goblin",
             "Troll",
             "Werewolf",
@@ -84,18 +84,18 @@ namespace DungeonExplorer
         }
         private string GetMonsterName()
         {
-            int index = m_random.Next(0, m_monsterNames.Length);
-            return m_monsterNames[index];
+            int index = _random.Next(0, _monsterNames.Length);
+            return _monsterNames[index];
         }
         private string GetMonsterBreed()
         {
-            int index = m_random.Next(0, m_monsterBreeds.Length);
-            return m_monsterBreeds[index];
+            int index = _random.Next(0, _monsterBreeds.Length);
+            return _monsterBreeds[index];
         }
         private double CreateRandomGaussianNumber(int mean, int stdDev)
         {
-            double u1 = 1.0 - m_random.NextDouble(); //uniform(0,1] random doubles
-            double u2 = 1.0 - m_random.NextDouble();
+            double u1 = 1.0 - _random.NextDouble(); //uniform(0,1] random doubles
+            double u2 = 1.0 - _random.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
             double randNormal = mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
             return randNormal;

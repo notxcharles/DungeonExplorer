@@ -6,8 +6,8 @@ namespace DungeonExplorer
     {
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
-        private static Random m_random = new Random();
-        private string[] m_weaponTypes = {
+        private static Random _random = new Random();
+        private string[] _weaponTypes = {
             "Baseball Bat",
             "Machete",
             "Crowbar",
@@ -30,7 +30,7 @@ namespace DungeonExplorer
             "Fireworks",
             "Tennis Ball Machine"
         };
-        private const int stdDevPercentage = 5;
+        private const int _stdDevPercentage = 5;
         public Weapon(string type, int weaponAverageDamage)
         {
             Type = type;
@@ -38,19 +38,19 @@ namespace DungeonExplorer
         }
         public Weapon(int weaponAverageDamage)
         {
-            m_random = new Random();
+            _random = new Random();
             Type = CreateWeaponType();
             AverageAttackDamage = weaponAverageDamage;
         }
         private string CreateWeaponType()
         {
-            int index = m_random.Next(0, m_weaponTypes.Length);
-            return m_weaponTypes[index];
+            int index = _random.Next(0, _weaponTypes.Length);
+            return _weaponTypes[index];
         }
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
-            double u1 = 1.0 - m_random.NextDouble(); 
-            double u2 = 1.0 - m_random.NextDouble();
+            double u1 = 1.0 - _random.NextDouble(); 
+            double u2 = 1.0 - _random.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
             double randNormal = mean + standardDeviation * randStdNormal;
             return randNormal;
@@ -58,7 +58,7 @@ namespace DungeonExplorer
         public int GetAttackDamage()
         {
             //AverageAttack represents the mean of a normal distribution
-            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / stdDevPercentage);
+            double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _stdDevPercentage);
             //attackDamage will be a random integer datapoint in the distribution
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
