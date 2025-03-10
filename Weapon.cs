@@ -7,7 +7,7 @@ namespace DungeonExplorer
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
         private static Random _random = new Random();
-        private string[] _weaponTypes = {
+        private static string[] _weaponTypes = {
             "Baseball Bat",
             "Machete",
             "Crowbar",

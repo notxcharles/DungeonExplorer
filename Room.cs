@@ -12,7 +12,7 @@ namespace DungeonExplorer
         public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
         private int[] _roomDimensions;
-        private string[] _roomNames = new string[] {
+        private static string[] _roomNames = new string[] {
             "The Forgotten Hall",
             "Chamber of Chains",
             "The Damp Passage",
@@ -34,7 +34,7 @@ namespace DungeonExplorer
             "Bone Pit",
             "The Still Lake"
         };
-        private string[] _roomDescriptions = new string[] {
+        private static string[] _roomDescriptions = new string[] {
             "A vast hall with towering stone pillars, their surfaces worn smooth by time. The air is thick with the scent of damp stone and something faintly metallic.",
             "A circular chamber, its walls lined with rusted chains and shattered weapons. Deep gouges in the floor hint at past struggles.",
             "A long, narrow corridor with an uneven floor, slick with moisture. Faint echoes of dripping water make it impossible to tell how deep the darkness ahead goes.",

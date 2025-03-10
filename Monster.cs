@@ -15,7 +15,7 @@ namespace DungeonExplorer
         public int MaxHealth { get; set; }
         public int AverageAttackDamage { get; private set; }
         private static Random _random = new Random();
-        private string[] _monsterNames = new string[] {
+        private static string[] _monsterNames = new string[] {
             "Walter White",
             "Joffrey Baratheon",
             "Cersei Lannister",
@@ -41,7 +41,7 @@ namespace DungeonExplorer
             "Count Dooku",
             "Jabba the Hutt",
         };
-        private string[] _monsterBreeds = new string[] {
+        private static string[] _monsterBreeds = new string[] {
             "Goblin",
             "Troll",
             "Werewolf",
