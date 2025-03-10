@@ -70,19 +70,19 @@ namespace DungeonExplorer
         }
         public Monster(int health, int averageAttack)
         {
-            Name = GetMonsterName();
-            Breed = GetMonsterBreed();
+            Name = CreateMonsterName();
+            Breed = CreateMonsterBreed();
             Health = health;
             MaxHealth = health;
             AverageAttackDamage = averageAttack;
             
         }
-        private string GetMonsterName()
+        private string CreateMonsterName()
         {
             int index = _random.Next(0, _monsterNames.Length);
             return _monsterNames[index];
         }
-        private string GetMonsterBreed()
+        private string CreateMonsterBreed()
         {
             int index = _random.Next(0, _monsterBreeds.Length);
             return _monsterBreeds[index];

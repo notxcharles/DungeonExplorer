@@ -64,30 +64,30 @@ namespace DungeonExplorer
         }
         public Room(Monster monster, Weapon weapon)
         {
-            RoomName = GetRoomName();
-            RoomDescription = GetRoomDescription();
+            RoomName = CreateRoomName();
+            RoomDescription = CreateRoomDescription();
             this.MonsterInTheRoom = monster;
             this.WeaponInTheRoom = weapon;
             DoorIsLocked = true;
         }
         public Room(string roomName, string description)
         {
-            roomName = GetRoomName();
-            description = GetRoomDescription();
+            roomName = CreateRoomName();
+            description = CreateRoomDescription();
         }
         public Room()
         {
-            RoomName = GetRoomName();
-            RoomDescription = GetRoomDescription();
+            RoomName = CreateRoomName();
+            RoomDescription = CreateRoomDescription();
         }
         // Select a random room name based on a list of premade room names
-        private string GetRoomName()
+        private string CreateRoomName()
         {
             int index = _random.Next(0, _roomNames.Length);
             return _roomNames[index];
         }
         // Select a random room name based on a list of premade room descriptions
-        private string GetRoomDescription()
+        private string CreateRoomDescription()
         {
             int index = _random.Next(0, _roomDescriptions.Length);
             return _roomDescriptions[index];
