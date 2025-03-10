@@ -57,7 +57,6 @@ namespace DungeonExplorer
             "A vast underground lake, the water impossibly still. Jagged rocks rise from the surface like teeth, and something beneath the water disturbs the reflection."
         };
         private static Random _random = new Random();
-        // A monster and an exit door in this room
         public Room(string roomName, string description, Monster monster)
         {
             this.RoomName = roomName;
@@ -73,8 +72,6 @@ namespace DungeonExplorer
             this.WeaponInTheRoom = weapon;
             DoorIsLocked = true;
         }
-
-        // The final room, there is treasure in this room but no door or monster
         public Room(string roomName, string description)
         {
             roomName = GetRoomName();
@@ -85,11 +82,13 @@ namespace DungeonExplorer
             RoomName = GetRoomName();
             RoomDescription = GetRoomDescription();
         }
+        // Select a random room name based on a list of premade room names
         private string GetRoomName()
         {
             int index = _random.Next(0, _roomNames.Length);
             return _roomNames[index];
         }
+        // Select a random room name based on a list of premade room descriptions
         private string GetRoomDescription()
         {
             int index = _random.Next(0, _roomDescriptions.Length);

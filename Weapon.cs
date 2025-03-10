@@ -44,11 +44,13 @@ namespace DungeonExplorer
         }
         private string CreateWeaponType()
         {
+            // Select a random weapon type based on a list of preselected types
             int index = _random.Next(0, _weaponTypes.Length);
             return _weaponTypes[index];
         }
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
+            // Returns a random integer, based on a Gaussian distribution
             double u1 = 1.0 - _random.NextDouble(); 
             double u2 = 1.0 - _random.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
@@ -57,9 +59,9 @@ namespace DungeonExplorer
         }
         public int GetAttackDamage()
         {
-            //AverageAttack represents the mean of a normal distribution
+            // The damage of the weapon is based of a gaussian distribution so the damage can vary
+            // AverageAttack represents the mean of a normal distribution
             double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _StdDevPercentage);
-            //attackDamage will be a random integer datapoint in the distribution
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
             return attackDamage;
         }

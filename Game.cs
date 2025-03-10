@@ -48,7 +48,7 @@ namespace DungeonExplorer
                 else if (decision == 2)
                 {
                     //player has chosen to pickup a weapon
-                    if (_player.GetTotalItemsInInventory() == _player.maxInventorySpace)
+                    if (_player.GetTotalItemsInInventory() == _player.MaxInventorySpace)
                     {
                         Console.WriteLine("Your inventory is full, you may not collect any more weapons");
                     }

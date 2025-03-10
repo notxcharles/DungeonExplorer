@@ -9,14 +9,14 @@ namespace DungeonExplorer
         public int MaxHealth { get; private set; }
         public int Health { get; set; }
         private List<Weapon> _inventory = new List<Weapon>();
-        public int maxInventorySpace { get; private set; }
+        public int MaxInventorySpace { get; private set; }
         private Weapon _currentEquippedWeapon;
         public Player(string name, int health) 
         {
             Name = name;
             MaxHealth = health;
             Health = health;
-            maxInventorySpace = 4;
+            MaxInventorySpace = 4;
             //The player's default starting weapon are their fists
             _currentEquippedWeapon = new Weapon("Fists", 30);
         }
@@ -30,14 +30,13 @@ namespace DungeonExplorer
             {
                 maxInventorySpace = 9;
             }
-            this.maxInventorySpace = maxInventorySpace;
+            this.MaxInventorySpace = maxInventorySpace;
             //The player's default starting weapon are their fists
             _currentEquippedWeapon = new Weapon("Fists", 30);
         }
         public void PickUpWeapon(Weapon weapon)
         {
-            //Check if the inventory is full (we'll say full=4 weapons)-
-            if (_inventory.Count == maxInventorySpace)
+            if (_inventory.Count == MaxInventorySpace)
             {
                 Console.WriteLine("Your inventory is full! You cannot pick up any more weapons");
             }
@@ -54,6 +53,7 @@ namespace DungeonExplorer
         }
         public void EquipDifferentWeapon(int weaponIndex)
         {
+            // Swap the selected weapon with the currently equipped weapon
             Weapon weaponToEquip = _inventory[weaponIndex];
             _inventory.Remove(weaponToEquip);
             _inventory.Add(_currentEquippedWeapon);
@@ -130,7 +130,7 @@ namespace DungeonExplorer
 
         public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
-            // if there are items in the inventory, return the number of items
+            // If there are no items in the inventory, show an error
             if (_inventory.Count == 0)
             {
                 Console.WriteLine("You have no items in your inventory. You can hold up to 4 weapons.");
@@ -150,14 +150,15 @@ namespace DungeonExplorer
                         Console.WriteLine($"- {_inventory[i].CreateSummary()}");
                     }     
                 }
-                Console.WriteLine($"You can hold up to 4 weapons in your inventory. You are currently " +
-                    $"holding {_inventory.Count} weapons.");                
+                Console.WriteLine($"You can hold up to {MaxInventorySpace} weapons in your inventory. You " +
+                    $"are currently holding {_inventory.Count} weapons.");                
             }
             return;
         }
         public int SelectWeaponInInventory()
         {
             ViewItemsInInventory(true);
+            // Player can't select an item in their inventory if their inventory is empty
             if (_inventory.Count == 0)
             {
                 return -1;
