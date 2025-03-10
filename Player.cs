@@ -79,10 +79,12 @@ namespace DungeonExplorer
             Console.WriteLine("(2) Pick up weapon");
             Console.WriteLine("(3) Retreat and heal");
             Console.WriteLine("(4) Open the door");
+            Console.WriteLine("(5) View room name and description again");
             if (monsterAlive)
             {
-                Console.WriteLine($"(5) Attack Monster with {_currentEquippedWeapon.Type}");
+                Console.WriteLine($"(6) Attack Monster with {_currentEquippedWeapon.Type}");
             }
+            
             Console.WriteLine("(9) Exit game");
             return;
         }
@@ -98,7 +100,7 @@ namespace DungeonExplorer
                 try
                 {
                     int keyAsInt = Convert.ToInt32(key.KeyChar.ToString());
-                    if (keyAsInt >= 0 && keyAsInt <= 5)
+                    if (keyAsInt >= 0 && keyAsInt <= 6)
                     {
                         Console.WriteLine($"Player pressed {keyAsInt}");
                         return keyAsInt;
@@ -112,7 +114,7 @@ namespace DungeonExplorer
                     {
                         if (monsterAlive)
                         {
-                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
+                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5, 6 or 9");
                         }
                         else
                         {

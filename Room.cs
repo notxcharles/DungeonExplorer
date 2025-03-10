@@ -93,6 +93,10 @@ namespace DungeonExplorer
             return _roomDescriptions[index];
         }
 
+        public string GetRoomName()
+        {
+            return RoomName;
+        }
         public string GetDescription()
         {
             return RoomDescription;

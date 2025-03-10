@@ -75,6 +75,10 @@ namespace DungeonExplorer
                 }
                 else if (decision == 5)
                 {
+                    Console.WriteLine($"You are in {_currentRoom.GetRoomName()}. {_currentRoom.GetDescription()}");
+                }
+                else if (decision == 6)
+                {
                     if (isMonsterAlive)
                     {
                         PlayerFightsMonster(_player, _currentRoom.MonsterInTheRoom, _currentRoom);
@@ -84,7 +88,7 @@ namespace DungeonExplorer
                         Console.WriteLine("Invalid input! You cannot fight a monster as there is no monster in the room!");
                     }
                     //Player wants to fight
-                    
+
                 }
                 PromptNextTurn();
                 //Thread.Sleep(5000);
