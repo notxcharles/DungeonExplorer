@@ -3,6 +3,12 @@ using System.Diagnostics;
 
 namespace DungeonExplorer
 {
+    /// <summary>
+    /// Class <c>Player</c> controls the logic of the Monster
+    /// </summary>
+    /// <remarks>
+    /// The <c>Monster</c> class is used to create a monster object that the player will fight against.
+    /// </remarks>
     public class Monster
     {
         public string Name { get; private set; }
