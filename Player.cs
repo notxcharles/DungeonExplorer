@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace DungeonExplorer
 {
+    /// <summary>
+    /// Class <c>Player</c> controls the logic of the Player character
+    /// </summary>
     public class Player
     {
         public string Name { get; private set; }
@@ -12,6 +15,11 @@ namespace DungeonExplorer
         private List<Weapon> _inventory = new List<Weapon>();
         public int MaxInventorySpace { get; private set; }
         private Weapon _currentEquippedWeapon;
+        /// <summary>
+        /// Class <c>Player</c>'s constructor
+        /// </summary>
+        /// <param name="name">Player's name</param>
+        /// <param name="health">Player's max health</param>
         public Player(string name, int health) 
         {
             Debug.Assert(name != null && name.Length > 0, "Error: Player name is null or string is empty");
@@ -23,6 +31,12 @@ namespace DungeonExplorer
             //The player's default starting weapon are their fists
             _currentEquippedWeapon = new Weapon("Fists", 30);
         }
+        /// <summary>
+        /// Class <c>Player</c>'s constructor
+        /// </summary>
+        /// <param name="name">Player's name</param>
+        /// <param name="health">Player's max health</param>
+        /// <param name="maxInventorySpace">The maximum inventory space of the player. 0-9</param>
         public Player(string name, int health, int maxInventorySpace)
         {
             Debug.Assert(name != null && name.Length > 0, "Error: Player name is null or string is empty");
@@ -39,6 +53,13 @@ namespace DungeonExplorer
             //The player's default starting weapon are their fists
             _currentEquippedWeapon = new Weapon("Fists", 30);
         }
+        /// <summary>
+        /// Player can <c>PickUpWeapon</c>
+        /// </summary>
+        /// <remarks>
+        /// This function first checks if the Player's inventory is full. If not, it adds \weapon\ to the Player's inventory
+        /// </remarks>
+        /// <param name="weapon">The weapon that the player will pick up</param>
         public void PickUpWeapon(Weapon weapon)
         {
             Debug.Assert(MaxInventorySpace <= 9, "Error: MaxInventorySpace should not be greater than 9");
@@ -57,6 +78,10 @@ namespace DungeonExplorer
             }
             return;
         }
+        /// <summary>
+        /// Handles the logic for the player to equip a different weapon
+        /// </summary>
+        /// <param name="weaponIndex">The index of the weapon within the player's inventory</param>
         public void EquipDifferentWeapon(int weaponIndex)
         {
             // Swap the selected weapon with the currently equipped weapon
@@ -70,7 +95,12 @@ namespace DungeonExplorer
                 $"{previousEquippedWeapon.Type} has been added to your inventory");
             return;
         }
-
+        /// <summary>
+        /// Prints multiple lines to the console displaying information about the Player
+        /// </summary>
+        /// <remarks>
+        /// Shows the Player's health, maximum health and what weapon is currently equipped
+        /// </remarks>
         public void ShowCharacterDetails()
         {
             Console.WriteLine($"\nCharacter Details:");
@@ -78,6 +108,10 @@ namespace DungeonExplorer
             Console.WriteLine($"Equipped Weapon: {_currentEquippedWeapon.CreateSummary()}\n");
             return;
         }
+        /// <summary>
+        /// <c>ShowTurnDecisions</c> prints all decisions that the Player can make to the console
+        /// </summary>
+        /// <param name="monsterAlive">true if the Monster's health is greater than 0</param>
         public void ShowTurnDecisions(bool monsterAlive)
         {
             Debug.Assert(!(monsterAlive == true && monsterAlive == false), "Error: monsterAlive was both true and false");
@@ -96,6 +130,16 @@ namespace DungeonExplorer
             Console.WriteLine("(9) Exit game");
             return;
         }
+        /// <summary>
+        /// Call <c>ShowTurnDecisions()</c> and then read the user's input as to the action they choose
+        /// </summary>
+        /// <remarks>
+        /// After the user is shown the decisions that they may make on the turn, this function also returns the integer
+        /// value for the decision. The user may only enter an integer, if they do not, they are informed of the required
+        /// format and asked for their input again
+        /// </remarks>
+        /// <param name="monsterAlive">true if the Monster's health is greater than 0</param>
+        /// <returns>Int value from 0 to 5 or 9. if monsterAlive = true, 6 may also be returned</returns>
         public int GetTurnDecisions(bool monsterAlive)
         {
             Debug.Assert(!(monsterAlive == true && monsterAlive == false), "Error: monsterAlive was both true and false");
@@ -127,7 +171,7 @@ namespace DungeonExplorer
                         }
                         else
                         {
-                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4 or 9");
+                            Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
                         }
                     }
                 }
@@ -138,7 +182,14 @@ namespace DungeonExplorer
             }
             return -1;
         }
-
+        /// <summary>
+        /// Prints multiple strings of all items in the player's inventory
+        /// </summary>
+        /// <remarks>
+        /// For each item in the Player's inventory, a message is written to the console that displays the item's name.
+        /// If the inventory is empty, a message is printed which communicates this to the player instead
+        /// </remarks>
+        /// <param name="showIndexOfItem">If true, the list index of the item is included in the print</param>
         public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
             Debug.Assert(!(showIndexOfItem == true && showIndexOfItem == false), "Error: showIndexOfItem was both true and false");
@@ -167,6 +218,10 @@ namespace DungeonExplorer
             }
             return;
         }
+        /// <summary>
+        /// Call <c>ViewItemsInInventory(true)</c> and then read the user's input as to the action they choose
+        /// </summary>
+        /// <returns>The integer index of the item in _inventory that the user selects</returns>
         public int SelectWeaponInInventory()
         {
             ViewItemsInInventory(true);
@@ -198,11 +253,19 @@ namespace DungeonExplorer
                 }
             }
         }
+        /// <summary>
+        /// <c>GetTotalItemsInInventory()</c> returns a count of the player's total inventory
+        /// </summary>
+        /// <returns><c>Player._inventory.Count</c></returns>
         public int GetTotalItemsInInventory()
         {
             Debug.Assert(_inventory != null, "Error: Inventory doesn't exist");
             return _inventory.Count;
         }
+        /// <summary>
+        /// <c>GetCurrentAttackDamage()</c> returns a the damage of the Player's equipped weapon
+        /// </summary>
+        /// <returns><c>Player._currentEquippedWeapon.GetAttackDamage()</c></returns>
         public int GetCurrentAttackDamage()
         {
             int attackDamage = _currentEquippedWeapon.GetAttackDamage();

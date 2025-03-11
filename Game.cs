@@ -2,7 +2,10 @@
 using System.Diagnostics;
 
 namespace DungeonExplorer
-{
+{   
+    /// <summary>
+    /// Class <c>Game</c> handles the flow and the logic of the Game
+    /// </summary>
     internal class Game
     {
         private string _gameName;
@@ -11,7 +14,13 @@ namespace DungeonExplorer
         private int _numberOfRooms;
         private static Random _random = new Random();
         private Testing testing;
-        
+
+        /// <summary>
+        /// Class <c>Game</c>'s constructor
+        /// </summary>
+        /// <param name="gameName">Name of the game</param>
+        /// <param name="amountOfRooms">Number of rooms that the player must progress through</param>
+        /// <param name="player">Instance of the game object</param>
         public Game(string gameName, int amountOfRooms, Player player)
         {
             testing = new Testing();
@@ -23,6 +32,9 @@ namespace DungeonExplorer
             _numberOfRooms = amountOfRooms;
             _player = player;
         }
+        /// <summary>
+        /// The primary part of the game's logic
+        /// </summary>
         public void Start()
         {
             int roomNumber = 0;
@@ -101,6 +113,9 @@ namespace DungeonExplorer
             FinishGame();
             return;
         }
+        /// <summary>
+        /// Clears the games console
+        /// </summary>
         public void ClearConsole()
         {
             Console.Clear();
@@ -108,6 +123,13 @@ namespace DungeonExplorer
             Console.WriteLine("\x1b[3J");
             return;
         }
+        /// <summary>
+        /// Prints the display for the start of the game
+        /// </summary>
+        /// <remarks>
+        /// This prints multiple messages to the console, welcoming the user to the game. <c>this._gameName</c> is
+        /// used as the title of the game
+        /// </remarks>
         public void GameStartDisplay()
         {
             ClearConsole();
@@ -119,6 +141,17 @@ namespace DungeonExplorer
             ClearConsole();
             return;
         }
+        /// <summary>
+        /// Creates a new instance of a room
+        /// </summary>
+        /// <remarks>
+        /// <c>CreateNewRoom</c> creates a new instance of a room. First it uses optional parameters to instantiate an instance of 
+        /// a monster. Secondly it uses <c>Random</c> to generate a random value between from 35 to 70, which is used as the weapon's
+        /// average attack damage. Lastly, we use <c>Room</c>'s constructor to create a new Room object
+        /// </remarks>
+        /// <returns>
+        /// Room
+        /// </returns>
         public Room CreateNewRoom(string roomName = "", string roomDescription = "", int monsterHealth = 100, int monsterDamage = 20)
         {
             Monster currentMonster = new Monster(monsterHealth, monsterDamage);
@@ -130,15 +163,25 @@ namespace DungeonExplorer
             }
             return new Room(currentMonster, weapon);
         }
+        /// <summary>
+        /// Prompts the player to press a key to advance to the next turn
+        /// </summary>
         public void PromptNextTurn()
         {
             Console.WriteLine("Press any key to continue");
             ConsoleKeyInfo key = Console.ReadKey();
         }
-        public bool NextRoom(Room room)
+        /// <summary>
+        /// Check if the currentRoom's door is locked
+        /// </summary>
+        /// <param name="currentRoom">Reference to the current Room object</param>
+        /// <returns>
+        /// true if <c>currentRoom.DoorIsLocked</c> is false. Otherwise returns false
+        /// </returns>
+        public bool NextRoom(Room currentRoom)
         {
-            Debug.Assert(room != null, "Error: room is null");
-            if (room.DoorIsLocked == false)
+            Debug.Assert(currentRoom != null, "Error: room is null");
+            if (currentRoom.DoorIsLocked == false)
             {
                 Console.WriteLine("The door is unlocked. You proceed to the next room. . .");
                 return true;
@@ -146,6 +189,17 @@ namespace DungeonExplorer
             Console.WriteLine("The door is locked! Have you defeated the monster?");
             return false;
         }
+        /// <summary>
+        /// Handles the Player and the Monster fighting
+        /// </summary>
+        /// <remarks>
+        /// Calculates the attack damage of the Player and applies it to the Monster. If the monster still has positive health after
+        /// this, the inverse is done and the function calculates the attack damage of the Monster and applies it to the player.
+        /// If the Monster or the Player has 0 or less health, a message is printed to the console informing us of the outcome.
+        /// </remarks>
+        /// <param name="player">Reference to the current Player object</param>
+        /// <param name="monster">Reference to the current Monster object</param>
+        /// <param name="room">Reference to the current Room object</param>
         public void PlayerFightsMonster(Player player, Monster monster, Room room)
         {
             Debug.Assert(player != null, "Error: player is null");
@@ -180,6 +234,9 @@ namespace DungeonExplorer
             Console.WriteLine("here");
             return;
         }
+        /// <summary>
+        /// <c>FinishGame</c> prints a message to the console that lets the user know that they have finished the game
+        /// </summary>
         public void FinishGame()
         {
             Console.WriteLine("Congratulations. You have won! Here is your treasure");
