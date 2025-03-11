@@ -13,7 +13,6 @@ namespace DungeonExplorer
         private Room _currentRoom;
         private int _numberOfRooms;
         private static Random _random = new Random();
-        private Testing testing;
 
         /// <summary>
         /// Class <c>Game</c>'s constructor
@@ -23,7 +22,6 @@ namespace DungeonExplorer
         /// <param name="player">Instance of the game object</param>
         public Game(string gameName, int amountOfRooms, Player player)
         {
-            testing = new Testing();
             Debug.Assert(gameName != null, "Error: gameName is null");
             Testing.TestForPositiveInteger(amountOfRooms);
             Debug.Assert(player != null, "Error: player is null");
@@ -76,7 +74,6 @@ namespace DungeonExplorer
                 }
                 else if (decision == 3)
                 {
-                    
                     //Retreat and heal-
                     int healthRecovered = _player.MaxHealth - _player.Health;
                     _player.Health = _player.MaxHealth;

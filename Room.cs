@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace DungeonExplorer
 {
+    /// <summary>
+    /// Class <c>Room</c> controls the logic related to the Room
+    /// </summary>
     public class Room
     {
         public string RoomName { get; private set; }
@@ -55,6 +58,12 @@ namespace DungeonExplorer
             "A vast underground lake, the water impossibly still. Jagged rocks rise from the surface like teeth, and something beneath the water disturbs the reflection."
         };
         private static Random _random = new Random();
+        /// <summary>
+        /// Class <c>Room</c>'s constructor
+        /// </summary>
+        /// <param name="roomName">The name of the room</param>
+        /// <param name="description">The description of the room</param>
+        /// <param name="monster">The instance of the monster</param>
         public Room(string roomName, string description, Monster monster)
         {
             this.RoomName = roomName;
@@ -63,6 +72,14 @@ namespace DungeonExplorer
             this.MonsterInTheRoom = monster;
             DoorIsLocked = true;
         }
+        /// <summary>
+        /// Class <c>Room</c>'s constructor
+        /// </summary>
+        /// <remarks>
+        /// The name and the description of the room are picked at random from a list of premade names and descriptions.
+        /// </remarks>
+        /// <param name="monster">The instance of the monster</param>
+        /// <param name="weapon"></param>
         public Room(Monster monster, Weapon weapon)
         {
             RoomName = CreateRoomName();
@@ -73,44 +90,80 @@ namespace DungeonExplorer
             this.WeaponInTheRoom = weapon;
             DoorIsLocked = true;
         }
+        /// <summary>
+        /// Class <c>Room</c>'s constructor
+        /// </summary>
+        /// <param name="roomName">The name of the room</param>
+        /// <param name="description">The description of the room</param>
         public Room(string roomName, string description)
         {
             roomName = CreateRoomName();
             description = CreateRoomDescription();
         }
+        /// <summary>
+        /// Class <c>Room</c>'s constructor
+        /// </summary>
+        /// <remarks>
+        /// The name and the description of the room are picked at random from a list of premade names and descriptions.
+        /// </remarks>
         public Room()
         {
             RoomName = CreateRoomName();
             RoomDescription = CreateRoomDescription();
         }
-        // Select a random room name based on a list of premade room names
+        /// <summary>
+        /// Create a random room name based on a list of premade room names
+        /// </summary>
+        /// <returns>The randomly selected room name</returns>
         private string CreateRoomName()
         {
             int index = _random.Next(0, _roomNames.Length);
             return _roomNames[index];
         }
-        // Select a random room name based on a list of premade room descriptions
+        /// <summary>
+        /// Create a random room description based on a list of premade room descriptions
+        /// </summary>
+        /// <returns>The randomly selected room name</returns>
         private string CreateRoomDescription()
         {
             int index = _random.Next(0, _roomDescriptions.Length);
             return _roomDescriptions[index];
         }
-
+        /// <summary>
+        /// Returns the name of the room
+        /// </summary>
+        /// <returns>Returns the name of the room</returns>
         public string GetRoomName()
         {
             Debug.Assert(RoomName != null || RoomName.Length != 0, "Error: The room's name does not exist");
             return RoomName;
         }
+        /// <summary>
+        /// Returns the description of the room
+        /// </summary>
+        /// <returns>Returns the description of the room</returns>
         public string GetDescription()
         {
             Debug.Assert(RoomDescription != null || RoomDescription.Length != 0, "Error: The room's description does not exist");
             return RoomDescription;
         }
 
+        /// <summary>
+        /// Returns true if the monster is alive (and is not null)
+        /// </summary>
+        /// <returns>true if the monster is alive and not null</returns>
         public bool IsMonsterAlive()
         {
             return MonsterInTheRoom != null && MonsterInTheRoom.Health > 0;
         }
+        /// <summary>
+        /// Welcomes the player to the room through multiple messages to the console
+        /// </summary>
+        /// <remarks>
+        /// The method prints out the room name, the room description, the monster's name, breed, health and the average attack damage
+        /// that the monster does. If there is a weapon in the room, the method also prints out the weapon's type and average attack damage.
+        /// </remarks>
+        /// <param name="roomNumber">The room number of the room, first, second etc</param>
         public void WelcomePlayer(int roomNumber)
         {
             Testing.TestForZeroOrAbove(roomNumber);
@@ -131,6 +184,9 @@ namespace DungeonExplorer
             }
             return;
         }
+        /// <summary>
+        /// Set Room.WeaponInTheRoom to null
+        /// </summary>
         public void WeaponPickedUp()
         {
             WeaponInTheRoom = null;
