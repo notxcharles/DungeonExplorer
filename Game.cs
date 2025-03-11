@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DungeonExplorer
 {
@@ -10,7 +11,6 @@ namespace DungeonExplorer
         private int _numberOfRooms;
         private static Random _random = new Random();
         
-
         public Game(string gameName, int amountOfRooms, Player player)
         {
             // Initialize the game with one room and one player
@@ -22,12 +22,13 @@ namespace DungeonExplorer
         {
             int roomNumber = 0;
             GameStartDisplay();
-            _currentRoom = CreateMonsterRoom();
+            _currentRoom = CreateNewRoom();
             while (roomNumber < _numberOfRooms)
             {
                 _currentRoom.WelcomePlayer(roomNumber);
                 bool isMonsterAlive = _currentRoom.IsMonsterAlive();
                 int decision = _player.GetTurnDecisions(isMonsterAlive);
+                Debug.Assert(decision >= 0 && decision <= 6, "Error: Decision must be an integer value from 0 to 6");
                 if (decision == 0)
                 {
                     //Player wants to view inventory
@@ -70,7 +71,7 @@ namespace DungeonExplorer
                     if (NextRoom(_currentRoom))
                     {
                         roomNumber += 1;
-                        _currentRoom = CreateMonsterRoom();
+                        _currentRoom = CreateNewRoom();
                     }
                 }
                 else if (decision == 5)
@@ -87,11 +88,9 @@ namespace DungeonExplorer
                     {
                         Console.WriteLine("Invalid input! You cannot fight a monster as there is no monster in the room!");
                     }
-                    //Player wants to fight
 
                 }
                 PromptNextTurn();
-                //Thread.Sleep(5000);
                 ClearConsole();
             }
             FinishGame();
@@ -115,7 +114,7 @@ namespace DungeonExplorer
             ClearConsole();
             return;
         }
-        public Room CreateMonsterRoom(string roomName = "", string roomDescription = "", int monsterHealth = 100, int monsterDamage = 20)
+        public Room CreateNewRoom(string roomName = "", string roomDescription = "", int monsterHealth = 100, int monsterDamage = 20)
         {
             Monster currentMonster = new Monster(monsterHealth, monsterDamage);
             int randomDamage = _random.Next(35, 70);
@@ -151,7 +150,6 @@ namespace DungeonExplorer
                 monsterAttackDamage = monster.GetAttackDamage();
                 player.Health -= monsterAttackDamage;
             }
-            
             if (monster.Health <= 0)
             {
                 Console.WriteLine($"You have killed the monster! You did {playerAttackDamage} damage. Congratulations!");
@@ -170,6 +168,7 @@ namespace DungeonExplorer
                 Console.WriteLine($"The monster has hit you for {monsterAttackDamage} damage. " +
                     $"You now have {player.Health}/{player.MaxHealth}");
             }
+            Console.WriteLine("here");
             return;
         }
         public void FinishGame()

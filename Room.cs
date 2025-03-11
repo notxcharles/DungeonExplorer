@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DungeonExplorer
 {
@@ -9,7 +10,6 @@ namespace DungeonExplorer
         public Monster MonsterInTheRoom { get; set; }
         public bool DoorIsLocked { get; set; }
         public Weapon WeaponInTheRoom { get; private set; }
-        private int[] _roomDimensions;
         private static string[] _roomNames = new string[] {
             "The Forgotten Hall",
             "Chamber of Chains",
@@ -59,6 +59,7 @@ namespace DungeonExplorer
         {
             this.RoomName = roomName;
             this.RoomDescription = description;
+            Debug.Assert(monster != null, "Error: the monster is null");
             this.MonsterInTheRoom = monster;
             DoorIsLocked = true;
         }
@@ -66,7 +67,9 @@ namespace DungeonExplorer
         {
             RoomName = CreateRoomName();
             RoomDescription = CreateRoomDescription();
+            Debug.Assert(monster != null, "Error: the monster is null");
             this.MonsterInTheRoom = monster;
+            Debug.Assert(weapon != null, "Error: the weapon is null");
             this.WeaponInTheRoom = weapon;
             DoorIsLocked = true;
         }
@@ -95,20 +98,18 @@ namespace DungeonExplorer
 
         public string GetRoomName()
         {
+            Debug.Assert(RoomName != null || RoomName.Length != 0, "Error: The room's name does not exist");
             return RoomName;
         }
         public string GetDescription()
         {
+            Debug.Assert(RoomDescription != null || RoomDescription.Length != 0, "Error: The room's description does not exist");
             return RoomDescription;
         }
 
-        public int[] GetDimensions()
-        {
-            return _roomDimensions;
-        }
         public bool IsMonsterAlive()
         {
-
+            Debug.Assert(RoomName != null, "Error: The monster does not exist");
             return MonsterInTheRoom != null && MonsterInTheRoom.Health > 0;
         }
         private Monster GetMonster()

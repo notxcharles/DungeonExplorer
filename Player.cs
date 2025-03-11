@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DungeonExplorer
 {
@@ -36,6 +37,7 @@ namespace DungeonExplorer
         }
         public void PickUpWeapon(Weapon weapon)
         {
+            Debug.Assert(MaxInventorySpace <= 9, "Error: MaxInventorySpace should not be greater than 9");
             if (_inventory.Count == MaxInventorySpace)
             {
                 Console.WriteLine("Your inventory is full! You cannot pick up any more weapons");
@@ -55,6 +57,7 @@ namespace DungeonExplorer
         {
             // Swap the selected weapon with the currently equipped weapon
             Weapon weaponToEquip = _inventory[weaponIndex];
+            Debug.Assert(weaponToEquip != null, "Error: weaponToEquip is null");
             _inventory.Remove(weaponToEquip);
             _inventory.Add(_currentEquippedWeapon);
             Weapon previousEquippedWeapon = _currentEquippedWeapon;
@@ -190,11 +193,14 @@ namespace DungeonExplorer
         }
         public int GetTotalItemsInInventory()
         {
+            Debug.Assert(_inventory != null, "Error: Inventory doesn't exist");
             return _inventory.Count;
         }
         public int GetCurrentAttackDamage()
         {
-            return _currentEquippedWeapon.GetAttackDamage();
+            int attackDamage = _currentEquippedWeapon.GetAttackDamage();
+            Debug.Assert(attackDamage <= 0, "Error: Weapon GetAttackDamage() should not be less than or equal to 0");
+            return attackDamage
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DungeonExplorer
 {
     public class Weapon
     {
+        private Testing testClass = new Testing();
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
         private static Random _random = new Random();
@@ -63,11 +65,13 @@ namespace DungeonExplorer
             // AverageAttack represents the mean of a normal distribution
             double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _StdDevPercentage);
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
+            Debug.Assert(attackDamage < 0, "Error: Weapon cannot do less than 0 damage");
             return attackDamage;
         }
         public string CreateSummary()
         {
             string summary = ($"{Type}, dealing an average of {AverageAttackDamage} per attack");
+            Debug.Assert(summary != null || summary.Length > 0, "Error: Summary is null or empty");
             return summary;
         }
     }
