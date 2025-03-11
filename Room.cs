@@ -114,9 +114,8 @@ namespace DungeonExplorer
         }
         public void WelcomePlayer(int roomNumber)
         {
-            Console.WriteLine($"{roomNumber} rn");
             Testing.TestForZeroOrAbove(roomNumber);
-            Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber})");
+            Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber+1})");
             Console.WriteLine($"{this.RoomDescription}\n");
             if (MonsterInTheRoom != null)
             {

@@ -31,7 +31,7 @@ namespace DungeonExplorer
         }
         public static void TestForZeroOrAbove(int value)
         {
-            Debug.Assert(value >= 0, "Error: Value wasn't a positive integer");
+            Debug.Assert(value >= 0, "Error: Value wasn't a positive integer or 0");
         }
 
     }
