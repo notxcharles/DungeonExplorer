@@ -60,6 +60,13 @@ namespace DungeonExplorer
             "Cyclopes"
         };
 
+        /// <summary>
+        /// Class <c>Monster</c>'s constructor
+        /// </summary>
+        /// <param name="name">The name of the monster</param>
+        /// <param name="breed">The breed of the monster</param>
+        /// <param name="health">The maximum health of the monster</param>
+        /// <param name="averageAttack">The average attack value that the monster does</param>
         public Monster(string name, string breed, int health, int averageAttack)
         {
             Debug.Assert(name != null, "Error: name does not exist");
@@ -72,6 +79,11 @@ namespace DungeonExplorer
             MaxHealth = health;
             AverageAttackDamage = averageAttack;
         }
+        /// <summary>
+        /// Class <c>Monster</c>'s constructor
+        /// </summary>
+        /// <param name="health">The maximum health of the monster</param>
+        /// <param name="averageAttack">The average attack value that the monster does</param>
         public Monster(int health, int averageAttack)
         {
             Name = CreateMonsterName();
@@ -83,16 +95,30 @@ namespace DungeonExplorer
             AverageAttackDamage = averageAttack;
             
         }
+        /// <summary>
+        /// From <c>Monster._monsterNames</c>, randomly select a name for the monster
+        /// </summary>
+        /// <returns>The selected string from Monster._monsterNames</returns>
         private string CreateMonsterName()
         {
             int index = _random.Next(0, _monsterNames.Length);
             return _monsterNames[index];
         }
+        /// <summary>
+        /// From <c>Monster._monsterBreeds</c>, randomly select a name for the monster
+        /// </summary>
+        /// <returns>The selected string from Monster._monsterBreeds</returns>
         private string CreateMonsterBreed()
         {
             int index = _random.Next(0, _monsterBreeds.Length);
             return _monsterBreeds[index];
         }
+        /// <summary>
+        /// Create a random number from a Gaussian distribution
+        /// </summary>
+        /// <param name="mean">Mean of the Gaussian distribution</param>
+        /// <param name="stdDev">Standard deviation of the distribution</param>
+        /// <returns>The random value from the distribution</returns>
         private double CreateRandomGaussianNumber(int mean, int stdDev)
         {
             double u1 = 1.0 - _random.NextDouble(); //uniform(0,1] random doubles
@@ -101,6 +127,13 @@ namespace DungeonExplorer
             double randNormal = mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
             return randNormal;
         }
+        /// <summary>
+        /// Get the attack damage of the monster
+        /// </summary>
+        /// <remarks>
+        /// Uses the <c>CreateRandomGaussianNumber()</c> function to get the attack damage that the monster does.
+        /// </remarks>
+        /// <returns>the attack damage</returns>
         public int GetAttackDamage()
         {
             //m_averageAttack represents the mean of a normal distribution
