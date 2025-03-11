@@ -55,7 +55,7 @@ namespace DungeonExplorer
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
             Testing.TestForPositiveInteger(mean);
-            Debug.Assert(standardDeviation > 0, "Error: standardDeviation is less than 1");
+            Testing.TestForZeroOrAbove(standardDeviation);
             // Returns a random integer, based on a Gaussian distribution
             double u1 = 1.0 - _random.NextDouble(); 
             double u2 = 1.0 - _random.NextDouble();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DungeonExplorer
 {
@@ -59,9 +60,12 @@ namespace DungeonExplorer
             "Cyclopes"
         };
 
-
         public Monster(string name, string breed, int health, int averageAttack)
         {
+            Debug.Assert(name != null, "Error: name does not exist");
+            Debug.Assert(breed != null, "Error: breed does not exist");
+            Testing.TestForPositiveInteger(health);
+            Testing.TestForZeroOrAbove(averageAttack);
             Name = name;
             Breed = breed;
             Health = health;
@@ -72,6 +76,8 @@ namespace DungeonExplorer
         {
             Name = CreateMonsterName();
             Breed = CreateMonsterBreed();
+            Testing.TestForPositiveInteger(health);
+            Testing.TestForZeroOrAbove(averageAttack);
             Health = health;
             MaxHealth = health;
             AverageAttackDamage = averageAttack;

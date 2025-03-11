@@ -14,7 +14,7 @@ namespace DungeonExplorer
         private Weapon _currentEquippedWeapon;
         public Player(string name, int health) 
         {
-            Debug.Assert(name != null || name.Length == 0, "Error: Player name is null or string is empty");
+            Debug.Assert(name != null && name.Length > 0, "Error: Player name is null or string is empty");
             Testing.TestForPositiveInteger(health);
             Name = name;
             MaxHealth = health;
@@ -25,6 +25,8 @@ namespace DungeonExplorer
         }
         public Player(string name, int health, int maxInventorySpace)
         {
+            Debug.Assert(name != null && name.Length > 0, "Error: Player name is null or string is empty");
+            Testing.TestForPositiveInteger(health);
             Name = name;
             MaxHealth = health;
             Health = health;
@@ -139,7 +141,7 @@ namespace DungeonExplorer
 
         public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
-            Debug.Assert(showIndexOfItem == true && showIndexOfItem == false, "Error: showIndexOfItem was both true and false");
+            Debug.Assert(!(showIndexOfItem == true && showIndexOfItem == false), "Error: showIndexOfItem was both true and false");
             // If there are no items in the inventory, show an error
             if (_inventory.Count == 0)
             {

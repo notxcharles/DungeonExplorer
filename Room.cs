@@ -109,7 +109,6 @@ namespace DungeonExplorer
 
         public bool IsMonsterAlive()
         {
-            Debug.Assert(RoomName != null, "Error: The monster does not exist");
             return MonsterInTheRoom != null && MonsterInTheRoom.Health > 0;
         }
         public void WelcomePlayer(int roomNumber)
