@@ -13,6 +13,9 @@ namespace DungeonExplorer
         
         public Game(string gameName, int amountOfRooms, Player player)
         {
+            Debug.Assert(gameName != null, "Error: gameName is null");
+            Debug.Assert(amountOfRooms > 0, "Error: amountOfRooms is less than 1");
+            Debug.Assert(player != null, "Error: player is null");
             // Initialize the game with one room and one player
             _gameName = gameName;
             _numberOfRooms = amountOfRooms;
@@ -132,6 +135,7 @@ namespace DungeonExplorer
         }
         public bool NextRoom(Room room)
         {
+            Debug.Assert(room != null, "Error: room is null");
             if (room.DoorIsLocked == false)
             {
                 Console.WriteLine("The door is unlocked. You proceed to the next room. . .");
@@ -142,6 +146,9 @@ namespace DungeonExplorer
         }
         public void PlayerFightsMonster(Player player, Monster monster, Room room)
         {
+            Debug.Assert(player != null, "Error: player is null");
+            Debug.Assert(monster != null, "Error: monster is null");
+            Debug.Assert(room != null, "Error: room is null");
             int playerAttackDamage = player.GetCurrentAttackDamage();
             monster.Health -= playerAttackDamage;
             int monsterAttackDamage = -1;

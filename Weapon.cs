@@ -5,7 +5,6 @@ namespace DungeonExplorer
 {
     public class Weapon
     {
-        private Testing testClass = new Testing();
         public string Type { get; private set; }
         public int AverageAttackDamage { get; private set; }
         private static Random _random = new Random();
@@ -35,12 +34,15 @@ namespace DungeonExplorer
         private const int _StdDevPercentage = 5;
         public Weapon(string type, int weaponAverageDamage)
         {
+            Debug.Assert(type != null, "Error: type is null");
+            Debug.Assert(weaponAverageDamage > 0, "Error: weaponAverageDamage is less than 1");
             Type = type;
             AverageAttackDamage = weaponAverageDamage;
         }
         public Weapon(int weaponAverageDamage)
         {
             _random = new Random();
+            Debug.Assert(weaponAverageDamage > 0, "Error: weaponAverageDamage is less than 1");
             Type = CreateWeaponType();
             AverageAttackDamage = weaponAverageDamage;
         }
@@ -52,6 +54,8 @@ namespace DungeonExplorer
         }
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
+            Debug.Assert(mean > 0, "Error: mean is less than 1");
+            Debug.Assert(standardDeviation > 0, "Error: standardDeviation is less than 1");
             // Returns a random integer, based on a Gaussian distribution
             double u1 = 1.0 - _random.NextDouble(); 
             double u2 = 1.0 - _random.NextDouble();

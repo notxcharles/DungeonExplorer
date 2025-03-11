@@ -49,6 +49,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="Testing.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>

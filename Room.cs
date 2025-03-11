@@ -112,12 +112,9 @@ namespace DungeonExplorer
             Debug.Assert(RoomName != null, "Error: The monster does not exist");
             return MonsterInTheRoom != null && MonsterInTheRoom.Health > 0;
         }
-        private Monster GetMonster()
-        {
-            return MonsterInTheRoom;
-        }
         public void WelcomePlayer(int roomNumber)
         {
+            Debug.Assert(roomNumber >= 0, "Error: roomNumber was negative");
             Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber})");
             Console.WriteLine($"{this.RoomDescription}\n");
             if (MonsterInTheRoom != null)

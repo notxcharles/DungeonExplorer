@@ -76,6 +76,7 @@ namespace DungeonExplorer
         }
         public void ShowTurnDecisions(bool monsterAlive)
         {
+            Debug.Assert(monsterAlive == true && monsterAlive == false, "Error: monsterAlive was both true and false");
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("(0) View Inventory");
             Console.WriteLine("(1) Change Equipped Item");
@@ -93,6 +94,7 @@ namespace DungeonExplorer
         }
         public int GetTurnDecisions(bool monsterAlive)
         {
+            Debug.Assert(monsterAlive == true && monsterAlive == false, "Error: monsterAlive was both true and false");
             ShowCharacterDetails();
             bool recievedValidInput = false;
             while (recievedValidInput == false)
@@ -135,6 +137,7 @@ namespace DungeonExplorer
 
         public void ViewItemsInInventory(bool showIndexOfItem = false)
         {
+            Debug.Assert(showIndexOfItem == true && showIndexOfItem == false, "Error: showIndexOfItem was both true and false");
             // If there are no items in the inventory, show an error
             if (_inventory.Count == 0)
             {
@@ -199,8 +202,8 @@ namespace DungeonExplorer
         public int GetCurrentAttackDamage()
         {
             int attackDamage = _currentEquippedWeapon.GetAttackDamage();
-            Debug.Assert(attackDamage <= 0, "Error: Weapon GetAttackDamage() should not be less than or equal to 0");
-            return attackDamage
+            Debug.Assert(attackDamage <= 0, "Error: Weapon GetCurrentAttackDamage() should not be less than or equal to 0");
+            return attackDamage;
         }
     }
 }
