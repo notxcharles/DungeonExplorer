@@ -10,11 +10,13 @@ namespace DungeonExplorer
         private Room _currentRoom;
         private int _numberOfRooms;
         private static Random _random = new Random();
+        private Testing testing;
         
         public Game(string gameName, int amountOfRooms, Player player)
         {
+            testing = new Testing();
             Debug.Assert(gameName != null, "Error: gameName is null");
-            Debug.Assert(amountOfRooms > 0, "Error: amountOfRooms is less than 1");
+            Testing.TestForPositiveInteger(amountOfRooms);
             Debug.Assert(player != null, "Error: player is null");
             // Initialize the game with one room and one player
             _gameName = gameName;

@@ -14,6 +14,8 @@ namespace DungeonExplorer
         private Weapon _currentEquippedWeapon;
         public Player(string name, int health) 
         {
+            Debug.Assert(name != null || name.Length == 0, "Error: Player name is null or string is empty");
+            Testing.TestForPositiveInteger(health);
             Name = name;
             MaxHealth = health;
             Health = health;

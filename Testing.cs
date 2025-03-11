@@ -5,6 +5,10 @@ namespace DungeonExplorer
 {
     class Testing
     {
+        public Testing()
+        {
+
+        }
         public void RunTests()
         {
             TestGetTurnDecisionsWithMonsterAlive();
@@ -21,10 +25,14 @@ namespace DungeonExplorer
             int result = player.GetTurnDecisions(monsterAlive);
             Debug.Assert(result >= 0 && result <= 6, $"Test failed: Expected a value between 0 and 6, but got {result}.");
         }
-        public void TestGetWeaponAttackDamage(Weapon weapon)
+        public static void TestForPositiveInteger(int value)
         {
-            int attackDamage = weapon.GetAttackDamage();
-            Debug.Assert(attackDamage <= 0, "Error: Weapon GetAttackDamage() should not be less than or equal to 0");
+            Debug.Assert(value > 0, "Error: Value wasn't a positive integer");
         }
+        public static void TestForZeroOrAbove(int value)
+        {
+            Debug.Assert(value >= 0, "Error: Value wasn't a positive integer");
+        }
+
     }
 }

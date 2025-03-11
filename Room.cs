@@ -114,7 +114,8 @@ namespace DungeonExplorer
         }
         public void WelcomePlayer(int roomNumber)
         {
-            Debug.Assert(roomNumber >= 0, "Error: roomNumber was negative");
+            Console.WriteLine($"{roomNumber} rn");
+            Testing.TestForZeroOrAbove(roomNumber);
             Console.WriteLine($"Welcome to Room {this.RoomName} (Room {roomNumber})");
             Console.WriteLine($"{this.RoomDescription}\n");
             if (MonsterInTheRoom != null)

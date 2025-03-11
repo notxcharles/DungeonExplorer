@@ -35,14 +35,14 @@ namespace DungeonExplorer
         public Weapon(string type, int weaponAverageDamage)
         {
             Debug.Assert(type != null, "Error: type is null");
-            Debug.Assert(weaponAverageDamage > 0, "Error: weaponAverageDamage is less than 1");
+            Testing.TestForPositiveInteger(weaponAverageDamage);
             Type = type;
             AverageAttackDamage = weaponAverageDamage;
         }
         public Weapon(int weaponAverageDamage)
         {
             _random = new Random();
-            Debug.Assert(weaponAverageDamage > 0, "Error: weaponAverageDamage is less than 1");
+            Testing.TestForPositiveInteger(weaponAverageDamage);
             Type = CreateWeaponType();
             AverageAttackDamage = weaponAverageDamage;
         }
@@ -54,7 +54,7 @@ namespace DungeonExplorer
         }
         private double CreateRandomGaussianNumber(int mean, int standardDeviation)
         {
-            Debug.Assert(mean > 0, "Error: mean is less than 1");
+            Testing.TestForPositiveInteger(mean);
             Debug.Assert(standardDeviation > 0, "Error: standardDeviation is less than 1");
             // Returns a random integer, based on a Gaussian distribution
             double u1 = 1.0 - _random.NextDouble(); 
@@ -69,7 +69,7 @@ namespace DungeonExplorer
             // AverageAttack represents the mean of a normal distribution
             double attackDamageGaussian = CreateRandomGaussianNumber(AverageAttackDamage, AverageAttackDamage / _StdDevPercentage);
             int attackDamage = Convert.ToInt32(attackDamageGaussian);
-            Debug.Assert(attackDamage < 0, "Error: Weapon cannot do less than 0 damage");
+            Testing.TestForPositiveInteger(attackDamage);
             return attackDamage;
         }
         public string CreateSummary()
