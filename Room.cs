@@ -147,7 +147,6 @@ namespace DungeonExplorer
             Debug.Assert(RoomDescription != null || RoomDescription.Length != 0, "Error: The room's description does not exist");
             return RoomDescription;
         }
-
         /// <summary>
         /// Returns true if the monster is alive (and is not null)
         /// </summary>
