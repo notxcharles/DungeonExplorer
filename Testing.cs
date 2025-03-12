@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Security.Cryptography;
 
 namespace DungeonExplorer
 {
@@ -8,7 +7,7 @@ namespace DungeonExplorer
         public Testing()
         {
 
-        }
+        } 
         public static void TestForPositiveInteger(int value)
         {
             Debug.Assert(value > 0, "Error: Value wasn't a positive integer");

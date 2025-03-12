@@ -68,7 +68,7 @@ namespace DungeonExplorer
                     }
                     else
                     {
-                        _player.PickUpWeapon(_currentRoom.WeaponInTheRoom);
+                        _player.PickUpItem(_currentRoom.WeaponInTheRoom);
                         _currentRoom.WeaponPickedUp();
                     }
                 }

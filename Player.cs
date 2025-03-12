@@ -54,13 +54,15 @@ namespace DungeonExplorer
             _currentEquippedWeapon = new Weapon("Fists", 30);
         }
         /// <summary>
-        /// Player can <c>PickUpWeapon</c>
+        /// Player can <c>PickUpItem</c>
         /// </summary>
         /// <remarks>
-        /// This function first checks if the Player's inventory is full. If not, it adds \weapon\ to the Player's inventory
+        /// This function first checks if the Player's inventory is full. If not, it adds \weapon\ to the Player's inventory.
+        /// It can be renamed to PickUpWeapon(), however because of the assessment requirements I have renamed it back to
+        /// PickUpItem()
         /// </remarks>
         /// <param name="weapon">The weapon that the player will pick up</param>
-        public void PickUpWeapon(Weapon weapon)
+        public void PickUpItem(Weapon weapon)
         {
             Debug.Assert(MaxInventorySpace <= 9, "Error: MaxInventorySpace should not be greater than 9");
             if (_inventory.Count == MaxInventorySpace)
