@@ -179,7 +179,14 @@ namespace DungeonExplorer
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine($"{key} was pressed. Please press 0, 1, 2 or 9");
+                    if (monsterAlive)
+                    {
+                        Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5, 6 or 9");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{key} was pressed. You must press 0, 1, 2, 3, 4, 5 or 9");
+                    }
                 }
             }
             return -1;
